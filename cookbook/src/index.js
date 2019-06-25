@@ -7,9 +7,10 @@ import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import rootReducer from "./reducers";
 import "./index.css";
-import App from "./App";
-import LoginPage from "./view/LoginPage";
-import SignUpPage from "./view/SignUpPage";
+// import App from "./App";
+// import LoginPage from "./view/LoginPage";
+// import SignUpPage from "./view/SignUpPage";
+import RecipeForm from "./components/RecipeForm";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -21,7 +22,7 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <SignUpPage/>
+      <RecipeForm/>
     </Router>
   </Provider>,
   document.getElementById("root")
