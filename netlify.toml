@@ -1,0 +1,4 @@
+[build]
+base = "cookbook/"
+publish = "myapp/build/"
+command = "yarn build"
