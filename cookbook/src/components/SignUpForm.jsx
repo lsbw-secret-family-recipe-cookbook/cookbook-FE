@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import {signUp} from "../actions";
 
 class SignUpForm extends React.Component {
   state = {
@@ -18,10 +19,14 @@ class SignUpForm extends React.Component {
     });
   };
 
-  submitAddAccount = e => {
+  signUp = e => {
     e.preventDefault();
     if (this.state.password1 === this.state.password2) {
-      this.props.signup(this.state.newUser);
+      const newUser= {
+        username: this.state.email,
+        password: this.state.password1,
+      }
+      this.props.signUp(newUser);
       this.setState({
           name: "",
           email: "",
@@ -40,7 +45,7 @@ class SignUpForm extends React.Component {
           <h2>Loading</h2>
         ) : (
           <>
-            <form onSubmit={this.submitAddAccount}>
+            <form onSubmit={this.signUp}>
               <h2>Welcom to your Secret Recipe Cookbook</h2>
               <p>Name:</p>
               <input
@@ -79,7 +84,7 @@ class SignUpForm extends React.Component {
               ) : (
                 ""
               )}
-              <button>Sign Up</button>
+              <button type="submit">Sign Up</button>
               <p>
                 Already a member? Sign in <Link to="/sign-in">here</Link>
               </p>
@@ -99,6 +104,6 @@ const mapStateToProps = state => ({
 });
 
 export default connect(
-  mapStateToProps
-  // { signin }
+  mapStateToProps,
+  { signUp }
 )(SignUpForm);

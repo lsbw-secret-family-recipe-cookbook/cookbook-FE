@@ -1,12 +1,12 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { login } from "../actions";
+import { logIn } from "../actions";
 
 class SignInForm extends React.Component {
   state = {
     credentials: {
-      email: "",
+      username: "",
       password: ""
     }
   };
@@ -19,12 +19,12 @@ class SignInForm extends React.Component {
     });
   };
 
-  login = e => {
+  logIn = e => {
     e.preventDefault();
-    // this.props.login(this.state.credentials);
+    this.props.logIn(this.state.credentials);
     this.setState({
       credentials: {
-        email: "",
+        username: "",
         password: ""
       }
     });
@@ -40,13 +40,13 @@ class SignInForm extends React.Component {
           <h2>Loading</h2>
         ) : (
           <>
-            <form onSubmit={this.submitAddAccount}>
+            <form onSubmit={this.logIn}>
               <h2>Sign in to your Secret Recipe Cookbook</h2>
               <p>Email:</p>
               <input
                 type="email"
                 required
-                name="email"
+                name="username"
                 onChange={this.handleChanges}
                 value={this.input}
               />
@@ -54,11 +54,11 @@ class SignInForm extends React.Component {
               <input
                 type="password"
                 required
-                name="password1"
+                name="password"
                 onChange={this.handleChanges}
                 value={this.input}
               />
-              <button>Sign In</button>
+              <button type="submit">Log In</button>
               <p>
                 Not a member? Sign up <Link to="/sign-up">here</Link>
               </p>
@@ -79,5 +79,5 @@ const mapStateToProps = state => ({
 
 export default connect(
   mapStateToProps,
-//   { login }
+  { logIn }
 )(SignInForm);

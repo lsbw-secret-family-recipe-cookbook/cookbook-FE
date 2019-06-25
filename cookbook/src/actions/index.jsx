@@ -5,7 +5,23 @@ export const SIGN_UP_START = "SIGN_UP_START";
 export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
 export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
 
-export const signUp = () => dispatch => {};
+export const signUp = credentials => dispatch => {
+  dispatch({ type: SIGN_UP_START });
+  axios
+    .post(
+      "https://lambdaschool-cookbook2.herokuapp.com/auth/register",
+      credentials
+    )
+    .then(res => {
+      dispatch({ type: SIGN_UP_SUCCESS });
+      // localStorage.setItem("token", res.data.token);
+      return true;
+    })
+    .catch(err => {
+      dispatch({ type: SIGN_UP_FAILURE, payload: err });
+      return false;
+    });
+};
 
 export const LOG_IN_START = "LOG_IN_START";
 export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS";
@@ -14,10 +30,13 @@ export const LOG_IN_FAILURE = "LOG_IN_FAILURE";
 export const logIn = credentials => dispatch => {
   dispatch({ type: LOG_IN_START });
   axios
-    .post("PLACEHOLDER", credentials)
+    .post(
+      "https://lambdaschool-cookbook2.herokuapp.com/auth/login",
+      credentials
+    )
     .then(res => {
       dispatch({ type: LOG_IN_SUCCESS });
-      localStorage.setItem("token", res.data.payload);
+      localStorage.setItem("token", res.data.token);
       return true;
     })
     .catch(err => {
@@ -33,9 +52,9 @@ export const FETCH_RECIPE_FAILURE = "FETCH_RECIPE_FAILURE";
 export const getRecipe = () => dispatch => {
   dispatch({ type: FETCH_RECIPE_START });
   axiosWithAuth()
-    .get("PLACEHOLDER")
+    .get("/recipes")
     .then(res => {
-      dispatch({ type: FETCH_RECIPE_SUCCESS, payload: res });
+      dispatch({ type: FETCH_RECIPE_SUCCESS, payload: res.data.recipes });
     })
     .catch(err => {
       dispatch({ type: FETCH_RECIPE_FAILURE, payload: err });
@@ -49,7 +68,7 @@ export const ADD_RECIPE_FAILURE = "ADD_RECIPE_FAILURE";
 export const addRecipe = newRecipe => dispatch => {
   dispatch({ type: ADD_RECIPE_START });
   axiosWithAuth()
-    .post("PLACEHOLDER", newRecipe)
+    .post("/recipes", newRecipe)
     .then(res => {
       dispatch({ type: ADD_RECIPE_SUCCESS, payload: res });
     })
@@ -89,4 +108,3 @@ export const deleteRecipe = recipeID => dispatch => {
       dispatch({ type: FETCH_RECIPE_FAILURE, payload: err });
     });
 };
-
