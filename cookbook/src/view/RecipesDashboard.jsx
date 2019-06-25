@@ -1,14 +1,16 @@
 import React from "react";
 import RecipesSidebar from "../components/RecipeSidebar";
-import Navigation from "../components/Navigation"
+import Navigation from "../components/Navigation";
+import TagSearch from "../components/TagSearch";
 
 const RecipesDashboard = () => {
-    return(
+  return (
     <div className="dashboard=wrapper">
-    <Navigation/>
-    <RecipesSidebar/>
+      <Navigation />
+      <TagSearch />
+      <RecipesSidebar />
     </div>
-    )
-}
+  );
+};
 
 export default RecipesDashboard;

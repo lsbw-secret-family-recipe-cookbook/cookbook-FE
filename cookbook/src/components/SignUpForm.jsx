@@ -44,7 +44,7 @@ class SignUpForm extends React.Component {
         ) : (
           <>
             <form onSubmit={this.signUp}>
-              <h2>Welcom to your Secret Recipe Cookbook</h2>
+              <h2>Welcome to your Secret Recipe Cookbook</h2>
               {/* <p>Name:</p>
               <input
                 type="text"
