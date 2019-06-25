@@ -90,8 +90,3 @@ export const deleteRecipe = recipeID => dispatch => {
     });
 };
 
-export const SEARCH = "SEARCH";
-
-export const search = value => dispatch => {
-  dispatch({ type: SEARCH, payload: value });
-};

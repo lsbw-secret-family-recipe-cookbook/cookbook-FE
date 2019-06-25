@@ -1,16 +1,18 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import { BrowserRouter as Router } from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import thunk from "redux-thunk";
 import logger from "redux-logger";
 import { createStore, applyMiddleware, compose } from "redux";
 import { Provider } from "react-redux";
 import rootReducer from "./reducers";
 import "./index.css";
-// import App from "./App";
-// import LoginPage from "./view/LoginPage";
-// import SignUpPage from "./view/SignUpPage";
-import RecipeForm from "./components/RecipeForm";
+
+import LoginPage from "./view/LoginPage";
+import SignUpPage from "./view/SignUpPage";
+import AddRecipe from "./view/AddRecipe";
+import RecipeList from "./view/RecipesList";
+import SingleRecipe from "./view/SingleRecipe";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -22,7 +24,13 @@ const store = createStore(
 ReactDOM.render(
   <Provider store={store}>
     <Router>
-      <RecipeForm/>
+      <Switch>
+        <Route exact path="/" component={LoginPage} />
+        <Route path="/sign-up" component={SignUpPage} />
+        <Route path="/recipes" component={RecipeList} />
+        <Route path="/recipes/:id" component={SingleRecipe} />
+        <Route path="/add-recipe" component={AddRecipe} />
+      </Switch>
     </Router>
   </Provider>,
   document.getElementById("root")

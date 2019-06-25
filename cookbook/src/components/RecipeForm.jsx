@@ -1,8 +1,33 @@
 import React from "react";
 import { connect } from "react-redux";
 import { addRecipe } from "../actions";
+import ShowArrayItem from "./ShowArrayItem";
 
 class RecipeForm extends React.Component {
+  state = {
+    title: "",
+    source: "",
+    ingredients: [],
+    directions: [],
+    tags: [],
+    note: "",
+    ingredientValue: "",
+    directionValue: "",
+    commonTags: [
+      "Breakfast",
+      "Lunch",
+      "Dinner",
+      "Dessert",
+      "Side",
+      "Main",
+      "Appetizer",
+      "Vegetable",
+      "Chicken",
+      "Pork",
+      "Beef",
+      "Quick"
+    ]
+  };
 
   handleChanges = e => {
     e.persist();
@@ -12,63 +37,105 @@ class RecipeForm extends React.Component {
     });
   };
 
-  addArrayItem = (e, arrayType) => {
+  addIngredient = e => {
     e.preventDefault();
     this.setState(state => {
-      const arrayType = [...state.arrayType, state.value];
+      const ingredients = [...state.ingredients, state.ingredientValue];
       return {
-        arrayType,
-        value: ""
+        ingredients,
+        ingredientValue: ""
       };
     });
+  };
+
+  addDirection = e => {
+    e.preventDefault();
+    this.setState(state => {
+      const directions = [...state.directions, state.directionValue];
+      return {
+        directions,
+        directionValue: ""
+      };
+    });
+  };
+  addTagByButton = (e, tag) => {
+    e.preventDefault();
+    this.setState(state=> {
+      const tags = [...state.tags, tag ]
+    })
+  }
+
+  submitRecipe = e => {
+    e.preventDefault();
+    const newRecipe = {
+      title: this.state.title,
+      source: this.state.source,
+      ingredients: this.state.ingredients,
+      directions: this.state.directions,
+      tags: this.state.tags,
+      note: this.state.note
+    };
+    this.props.addRecipe(newRecipe);
   };
 
   render() {
     return (
       <div className="recipe-form">
         <h2>Create New Recipe</h2>
-        <form>
+        <form onSubmit={this.submitRecipe}>
           <input
             placeholder="Title"
             type="text"
             required
             name="title"
             onChange={this.handleChanges}
-            value={this.propsrecipeToAdd.title}
+            value={this.state.title}
           />
           <input
             placeholder="Source"
             type="text"
             name="source"
             onChange={this.handleChanges}
-            value={this.propsrecipeToAdd.source}
+            value={this.state.source}
           />
           <h3>Ingredients</h3>
-          <div className="ingredient">
-            <input
-              placeholder="Ingredient"
-              type="text"
-              name="value"
-              onChange={this.handleChanges}
-              value={this.props.recipeToAdd.value}
-            />
-          </div>
 
-          <button onClick={(e)=>this.addArrayItem(e, "ingredients")}>Add Ingredient</button>
+          <input
+            placeholder="Ingredient"
+            type="text"
+            name="ingredientValue"
+            onChange={this.handleChanges}
+            value={this.state.ingredientValue}
+          />
+          <button onClick={this.addIngredient}>Add Ingredient</button>
+
+          {this.state.ingredients.map((ingredient, index) => (
+            <ShowArrayItem listNum={index + 1} item={ingredient} />
+          ))}
+
           <h3>Directions</h3>
           <input
             type="text"
-            name="direction"
+            name="directionValue"
             onChange={this.handleChanges}
-            value={this.props.recipeToAdd.value}
+            value={this.state.directionValue}
+            placeholder="Direction"
           />
-          <button>Plus</button>
+          <button onClick={this.addDirection}>Plus</button>
+          {this.state.directions.map((direction, index) => (
+            <ShowArrayItem listNum={index + 1} item={direction} />
+          ))}
+          <div className="tags">
+          {this.state.commonTags.map(tag => {
+            return <button onClick={(e)=> this.addTagByButton(e, {tag})}>{tag}</button>
+          })}
+          </div>
           <h3>Note:</h3>
           <input
             type="text"
             name="note"
             onChange={this.handleChanges}
-            value={this.props.recipeToAdd.note}
+            value={this.state.note}
           />
         </form>
       </div>
@@ -77,8 +144,7 @@ class RecipeForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  addingRecipe: state.addingRecipe,
-  recipeToAdd: state.RecipeToAdd
+  addingRecipe: state.addingRecipe
 });
 
 export default connect(
