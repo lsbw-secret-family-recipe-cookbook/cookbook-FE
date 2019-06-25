@@ -27,7 +27,7 @@ ReactDOM.render(
       <Switch>
         <Route exact path="/" component={LoginPage} />
         <Route path="/sign-up" component={SignUpPage} />
-        <Route path="/recipes" component={RecipeList} />
+        {/* <Route path="/recipes" component={RecipeList} /> */}
         <Route path="/recipes/:id" component={SingleRecipe} />
         <Route path="/add-recipe" component={AddRecipe} />
       </Switch>
