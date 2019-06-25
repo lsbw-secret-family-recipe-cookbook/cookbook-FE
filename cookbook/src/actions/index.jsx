@@ -26,7 +26,7 @@ export const signUp = credentials => dispatch => {
 export const LOG_IN_START = "LOG_IN_START";
 export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS";
 export const LOG_IN_FAILURE = "LOG_IN_FAILURE";
-//this one is not right/needs work
+
 export const logIn = credentials => dispatch => {
   dispatch({ type: LOG_IN_START });
   axios
@@ -81,10 +81,10 @@ export const UPDATE_RECIPE_START = "EDIT_RECIPE_START";
 export const UPDATE_RECIPE_SUCCESS = "EDIT_RECIPE_SUCCESS";
 export const UPDATE_RECIPE_FAILURE = "EDIT_RECIPE_FAILURE";
 
-export const updateRecipe = updatedRecipe => dispatch => {
+export const updateRecipe = (recipeID, updatedRecipe) => dispatch => {
   dispatch({ type: UPDATE_RECIPE_START });
   axiosWithAuth()
-    .put("PLACEHOLDER", updatedRecipe)
+    .put(`/recipes/${recipeID}`, updatedRecipe)
     .then(res => {
       dispatch({ type: UPDATE_RECIPE_SUCCESS, payload: res });
     })
@@ -98,13 +98,29 @@ export const DELETE_RECIPE_SUCCESS = "DELETE_RECIPE_SUCCESS";
 export const DELETE_RECIPE_FAILURE = "DELETE_RECIPE_FAILURE";
 
 export const deleteRecipe = recipeID => dispatch => {
-  dispatch({ type: FETCH_RECIPE_START });
+  dispatch({ type: DELETE_RECIPE_START });
+  axiosWithAuth()
+    .delete(`/recipes/${recipeID}`)
+    .then(res => {
+      dispatch({ type: DELETE_RECIPE_SUCCESS, payload: res });
+    })
+    .catch(err => {
+      dispatch({ type: DELETE_RECIPE_FAILURE, payload: err });
+    });
+};
+
+export const FETCH_TITLES_START= "FETCH_TITLES_START";
+export const FETCH_TITLES_SUCCESS = "FETCH_TITLES_SUCCESS";
+export const FETCH_TITLES_FAILURE= "FETCH_TITLES_FAILURE";
+
+export const fetchTitles = (recipeID) => dispatch =>{
+  dispatch({ type: FETCH_TITLES_START });
   axiosWithAuth()
     .delete(`PLACEHOLDER/${recipeID}`)
     .then(res => {
-      dispatch({ type: FETCH_RECIPE_SUCCESS, payload: res });
+      dispatch({ type: FETCH_TITLES_SUCCESS, payload: res });
     })
     .catch(err => {
-      dispatch({ type: FETCH_RECIPE_FAILURE, payload: err });
+      dispatch({ type: FETCH_TITLES_FAILURE, payload: err });
     });
 };

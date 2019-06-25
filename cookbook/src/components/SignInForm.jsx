@@ -42,9 +42,9 @@ class SignInForm extends React.Component {
           <>
             <form onSubmit={this.logIn}>
               <h2>Sign in to your Secret Recipe Cookbook</h2>
-              <p>Email:</p>
+              <p>Username</p>
               <input
-                type="email"
+                type="text"
                 required
                 name="username"
                 onChange={this.handleChanges}

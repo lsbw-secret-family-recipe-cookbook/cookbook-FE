@@ -1,22 +1,29 @@
 import React from "react";
 import {connect} from "react-redux";
 import{Link} from "react-router-dom";
+import {fetchTitles} from "../actions";
  
-// class RecipeSideBar extends React.Component {
-// render(){
-//     return(
-//         {this.props.titles.map(title => {
-//             <Link to={`/recipes/${PLACEHOLDER FOR ID}` key={id}}
-//             <p>{title}</p>
-//         })}
-//     )
-// }
-// }
+class RecipeSideBar extends React.Component {
 
-// const mapStateToProps = state => ({
-//     titles: state.titles
-// })
+    componentDidMount(){
+        this.props.fetchTitles();
+    }
+    render(){
+    return(
+        // {this.props.titles.map(title => {
+        //     <Link to=`/recipes/${title.id}` key={title.id} >
+        //     <p>{title.title}</p>
+        //     </Link>
+        // })}
+        <p>Recipe Sidebar</p>
+    )
+}
+}
 
-// export default connect(
-//     mapStatestoProps
-// )(RecipeSideBar);
+const mapStateToProps = state => ({
+    titles: state.titles
+})
+
+export default connect(
+    mapStateToProps, {fetchTitles}
+)(RecipeSideBar);
