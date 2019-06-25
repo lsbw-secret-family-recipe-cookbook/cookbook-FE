@@ -76,9 +76,9 @@ class RecipeForm extends React.Component {
       title: this.state.title,
       source: this.state.source,
       ingredients: this.state.ingredients,
-      directions: this.state.directions,
+      instructions: this.state.directions,
       tags: this.state.tags,
-      note: this.state.note
+      notes: this.state.note
     };
     this.props.addRecipe(newRecipe);
   };
