@@ -60,10 +60,15 @@ class RecipeForm extends React.Component {
   };
   addTagByButton = (e, tag) => {
     e.preventDefault();
-    this.setState(state=> {
-      const tags = [...state.tags, tag ]
-    })
-  }
+    this.setState(state => {
+      const tags = [...state.tags, tag.toString()];
+      const commonTags = state.commonTags.filter(el => el !== tag);
+      return {
+        tags,
+        commonTags
+      };
+    });
+  };
 
   submitRecipe = e => {
     e.preventDefault();
@@ -98,37 +103,57 @@ class RecipeForm extends React.Component {
             onChange={this.handleChanges}
             value={this.state.source}
           />
-          <h3>Ingredients</h3>
+          <div className="ingredients-wrapper">
+            <h3>Ingredients</h3>
 
-          <input
-            placeholder="Ingredient"
-            type="text"
-            name="ingredientValue"
-            onChange={this.handleChanges}
-            value={this.state.ingredientValue}
-          />
-          <button onClick={this.addIngredient}>Add Ingredient</button>
+            <input
+              placeholder="Ingredient"
+              type="text"
+              name="ingredientValue"
+              onChange={this.handleChanges}
+              value={this.state.ingredientValue}
+            />
+            <button onClick={this.addIngredient}>Add Ingredient</button>
 
-          {this.state.ingredients.map((ingredient, index) => (
-            <ShowArrayItem listNum={index + 1} item={ingredient} />
-          ))}
-
-          <h3>Directions</h3>
-          <input
-            type="text"
-            name="directionValue"
-            onChange={this.handleChanges}
-            value={this.state.directionValue}
-            placeholder="Direction"
-          />
-          <button onClick={this.addDirection}>Plus</button>
-          {this.state.directions.map((direction, index) => (
-            <ShowArrayItem listNum={index + 1} item={direction} />
-          ))}
-          <div className="tags">
-          {this.state.commonTags.map(tag => {
-            return <button onClick={(e)=> this.addTagByButton(e, {tag})}>{tag}</button>
-          })}
+            {this.state.ingredients.map((ingredient, index) => (
+              <ShowArrayItem
+                listNum={index + 1}
+                item={ingredient}
+                key={index}
+              />
+            ))}
+          </div>
+          <div className="directions-wrapper">
+            <h3>Directions</h3>
+            <input
+              type="text"
+              name="directionValue"
+              onChange={this.handleChanges}
+              value={this.state.directionValue}
+              placeholder="Direction"
+            />
+            <button onClick={this.addDirection}>Plus</button>
+            {this.state.directions.map((direction, index) => (
+              <ShowArrayItem listNum={index + 1} item={direction} key={index} />
+            ))}
+          </div>
+          <div className="tags-wrapper">
+            <h3>Tags</h3>
+            <div className="tags">
+              {this.state.commonTags.map((tag, index) => {
+                return (
+                  <button
+                    key={index}
+                    onClick={e => this.addTagByButton(e, tag)}
+                  >
+                    {tag}
+                  </button>
+                );
+              })}
+              {this.state.tags.map(tag => (
+                <p>{tag}</p>
+              ))}
+            </div>
           </div>
           <h3>Note:</h3>
           <input
@@ -137,6 +162,7 @@ class RecipeForm extends React.Component {
             onChange={this.handleChanges}
             value={this.state.note}
           />
+          <button type="submit">Add Recipe</button>
         </form>
       </div>
     );
