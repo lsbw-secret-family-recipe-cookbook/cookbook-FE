@@ -12,7 +12,21 @@ class RecipeForm extends React.Component {
     tags: [],
     note: "",
     ingredientValue: "",
-    directionValue: ""
+    directionValue: "",
+    commonTags: [
+      "Breakfast",
+      "Lunch",
+      "Dinner",
+      "Dessert",
+      "Side",
+      "Main",
+      "Appetizer",
+      "Vegetable",
+      "Chicken",
+      "Pork",
+      "Beef",
+      "Quick"
+    ]
   };
 
   handleChanges = e => {
@@ -44,6 +58,12 @@ class RecipeForm extends React.Component {
       };
     });
   };
+  addTagByButton = (e, tag) => {
+    e.preventDefault();
+    this.setState(state=> {
+      const tags = [...state.tags, tag ]
+    })
+  }
 
   submitRecipe = e => {
     e.preventDefault();
@@ -105,6 +125,11 @@ class RecipeForm extends React.Component {
           {this.state.directions.map((direction, index) => (
             <ShowArrayItem listNum={index + 1} item={direction} />
           ))}
+          <div className="tags">
+          {this.state.commonTags.map(tag => {
+            return <button onClick={(e)=> this.addTagByButton(e, {tag})}>{tag}</button>
+          })}
+          </div>
           <h3>Note:</h3>
           <input
             type="text"

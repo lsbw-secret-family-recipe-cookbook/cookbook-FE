@@ -25,7 +25,7 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <Switch>
-        <Route path="/log-in" component={LoginPage} />
+        <Route exact path="/" component={LoginPage} />
         <Route path="/sign-up" component={SignUpPage} />
         <Route path="/recipes" component={RecipeList} />
         <Route path="/recipes/:id" component={SingleRecipe} />

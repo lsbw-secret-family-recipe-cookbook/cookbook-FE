@@ -18,8 +18,9 @@ class Tags extends React.Component {
         isAppetizer: false}
     }
     
-    selectTag=e=> {
+   toggleTag=e=> {
         e.preventDefault();
+
 
     }
     render(){

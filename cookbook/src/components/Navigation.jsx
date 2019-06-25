@@ -1,13 +1,14 @@
 import React from "react";
-import { NavLink, Route } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 const Navigation = () => {
     return(
         <nav>
-            <NavLink to="/">Home</NavLink>
-            <NavLink to="/sign-out">Sign Out</NavLink>
-            <Route exact path="/" component={RecipeList}/>
-            <Route path="/sign-out" component={SignInPage}/>
+            <NavLink to="/log-in">Log In</NavLink>
+            <NavLink to="/sign-up">Sign Up</NavLink>
+            <NavLink to="/recipes">Recipes</NavLink>
+            <NavLink to="/add-recipe">Add New Recipe</NavLink>
         </nav>
     )
 }
+ export default Navigation;
