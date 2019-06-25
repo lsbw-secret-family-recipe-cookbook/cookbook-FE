@@ -17,7 +17,6 @@ import {
   DELETE_RECIPE_START,
   DELETE_RECIPE_SUCCESS,
   DELETE_RECIPE_FAILURE,
-  SEARCH
 } from "../actions";
 
 const initialState = {
@@ -146,15 +145,6 @@ const reducer = (state = initialState, action) => {
         error: action.payload,
         deletingRecipe: false
       };
-    case SEARCH:
-      const filteredRecipes = state.recipes.filter(recipe =>
-        recipe.toLowerCase().includes(action.payload)
-      );
-      return {
-        ...state,
-        recipes: filteredRecipes
-      };
-
     default:
       return state;
   }
