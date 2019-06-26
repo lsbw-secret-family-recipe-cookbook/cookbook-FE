@@ -23,17 +23,18 @@ import {
 } from "../actions";
 
 const initialState = {
-  recipe: [],
+  recipe: null,
   titles: [],
   error: null,
   signingUp: false,
   loggingIn: false,
-  fetchingRecipes: false,
+  fetchingRecipe: false,
   addingRecipe: false,
   updatingRecipe: false,
   deletingRecipe: false,
   fetchingTitles: false,
   uniqueTags: ["all"],
+  currentRecipes:[]
 };
 
 const reducer = (state = initialState, action) => {
@@ -77,21 +78,21 @@ const reducer = (state = initialState, action) => {
     case FETCH_RECIPE_START:
       return {
         ...state,
-        fetchingRecipes: true,
+        fetchingRecipe: true,
         error: null
       };
     case FETCH_RECIPE_SUCCESS:
       return {
         ...state,
         error: null,
-        fetchingRecipes: false,
-        recipes: action.payload
+        fetchingRecipe: false,
+        recipe: action.payload
       };
     case FETCH_RECIPE_FAILURE:
       return {
         ...state,
         error: action.payload,
-        fetchingRecipes: false
+        fetchingRecipe: false
       };
     case ADD_RECIPE_START:
       return {
@@ -171,7 +172,8 @@ const reducer = (state = initialState, action) => {
         titles: action.payload,
         fetchingTitles: false,
         error: null,
-        uniqueTags: tempUniqueTags
+        uniqueTags: tempUniqueTags,
+        currentRecipes: action.payload
       };
     case FETCH_TITLES_FAILURE:
       return {

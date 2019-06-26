@@ -17,10 +17,12 @@ class TagSearch extends React.Component {
       });
     }
   }
-
-
-  handleChanges = e => {
-    this.setState({ [e.target.name]: e.target.value.toLowerCase() });
+  componentDidUpdate(prevProps) {
+    if (prevProps.titles !== this.props.titles) {
+      this.setState({
+        currentRecipes: [...this.props.titles]
+      })
+    }
   };
 
   searchRecipes = (e, selectedTag) => {
@@ -57,7 +59,6 @@ class TagSearch extends React.Component {
             {tag}
           </button>
         ))}
-        {console.log("tag search", this.state.currentRecipes)}
         <RecipeCards recipes={this.state.currentRecipes} />
       </div>
     );
@@ -67,7 +68,7 @@ class TagSearch extends React.Component {
 const mapStateToProps = state => ({
   titles: state.titles.recipes,
   fetchingTitles: state.fetchingTitles,
-  uniqueTags: state.uniqueTags
+  uniqueTags: state.uniqueTags,
 });
 
 export default connect(
