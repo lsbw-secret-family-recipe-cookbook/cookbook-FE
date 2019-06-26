@@ -26,7 +26,7 @@ export const signUp = credentials => dispatch => {
 export const LOG_IN_START = "LOG_IN_START";
 export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS";
 export const LOG_IN_FAILURE = "LOG_IN_FAILURE";
-//this one is not right/needs work
+
 export const logIn = credentials => dispatch => {
   dispatch({ type: LOG_IN_START });
   axios
@@ -49,10 +49,10 @@ export const FETCH_RECIPE_START = "FETCH_RECIPE_START";
 export const FETCH_RECIPE_SUCCESS = "FETCH_RECIPE_SUCCESS";
 export const FETCH_RECIPE_FAILURE = "FETCH_RECIPE_FAILURE";
 
-export const getRecipe = () => dispatch => {
+export const getRecipe = (recipeID) => dispatch => {
   dispatch({ type: FETCH_RECIPE_START });
   axiosWithAuth()
-    .get("/recipes")
+    .get(`/recipes/${recipeID}`)
     .then(res => {
       dispatch({ type: FETCH_RECIPE_SUCCESS, payload: res.data.recipes });
     })
@@ -70,7 +70,7 @@ export const addRecipe = newRecipe => dispatch => {
   axiosWithAuth()
     .post("/recipes", newRecipe)
     .then(res => {
-      dispatch({ type: ADD_RECIPE_SUCCESS, payload: res });
+      dispatch({ type: ADD_RECIPE_SUCCESS, payload: res.data });
     })
     .catch(err => {
       dispatch({ type: ADD_RECIPE_FAILURE, payload: err });
@@ -81,12 +81,12 @@ export const UPDATE_RECIPE_START = "EDIT_RECIPE_START";
 export const UPDATE_RECIPE_SUCCESS = "EDIT_RECIPE_SUCCESS";
 export const UPDATE_RECIPE_FAILURE = "EDIT_RECIPE_FAILURE";
 
-export const updateRecipe = updatedRecipe => dispatch => {
+export const updateRecipe = (recipeID, updatedRecipe) => dispatch => {
   dispatch({ type: UPDATE_RECIPE_START });
   axiosWithAuth()
-    .put("PLACEHOLDER", updatedRecipe)
+    .put(`/recipes/${recipeID}`, updatedRecipe)
     .then(res => {
-      dispatch({ type: UPDATE_RECIPE_SUCCESS, payload: res });
+      dispatch({ type: UPDATE_RECIPE_SUCCESS, payload: res.data });
     })
     .catch(err => {
       dispatch({ type: UPDATE_RECIPE_FAILURE, payload: err });
@@ -98,13 +98,29 @@ export const DELETE_RECIPE_SUCCESS = "DELETE_RECIPE_SUCCESS";
 export const DELETE_RECIPE_FAILURE = "DELETE_RECIPE_FAILURE";
 
 export const deleteRecipe = recipeID => dispatch => {
-  dispatch({ type: FETCH_RECIPE_START });
+  dispatch({ type: DELETE_RECIPE_START });
   axiosWithAuth()
-    .delete(`PLACEHOLDER/${recipeID}`)
+    .delete(`/recipes/${recipeID}`)
     .then(res => {
-      dispatch({ type: FETCH_RECIPE_SUCCESS, payload: res });
+      dispatch({ type: DELETE_RECIPE_SUCCESS, payload: res.data });
     })
     .catch(err => {
-      dispatch({ type: FETCH_RECIPE_FAILURE, payload: err });
+      dispatch({ type: DELETE_RECIPE_FAILURE, payload: err });
+    });
+};
+
+export const FETCH_TITLES_START= "FETCH_TITLES_START";
+export const FETCH_TITLES_SUCCESS = "FETCH_TITLES_SUCCESS";
+export const FETCH_TITLES_FAILURE= "FETCH_TITLES_FAILURE";
+
+export const getTitles = (recipeID) => dispatch =>{
+  dispatch({ type: FETCH_TITLES_START });
+  axiosWithAuth()
+    .get(`/recipes`)
+    .then(res => {
+      dispatch({ type: FETCH_TITLES_SUCCESS, payload: res.data });
+    })
+    .catch(err => {
+      dispatch({ type: FETCH_TITLES_FAILURE, payload: err });
     });
 };

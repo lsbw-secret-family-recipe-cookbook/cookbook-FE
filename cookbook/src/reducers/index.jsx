@@ -17,10 +17,14 @@ import {
   DELETE_RECIPE_START,
   DELETE_RECIPE_SUCCESS,
   DELETE_RECIPE_FAILURE,
+  FETCH_TITLES_START,
+  FETCH_TITLES_SUCCESS,
+  FETCH_TITLES_FAILURE
 } from "../actions";
 
 const initialState = {
-  recipes: [],
+  recipe: [],
+  titles: [],
   error: null,
   signingUp: false,
   loggingIn: false,
@@ -28,6 +32,8 @@ const initialState = {
   addingRecipe: false,
   updatingRecipe: false,
   deletingRecipe: false,
+  fetchingTitles: false,
+  uniqueTags: ["all"],
 };
 
 const reducer = (state = initialState, action) => {
@@ -144,6 +150,34 @@ const reducer = (state = initialState, action) => {
         ...state,
         error: action.payload,
         deletingRecipe: false
+      };
+    case FETCH_TITLES_START:
+      return {
+        ...state,
+        error: null,
+        fetchingTitles: true
+      };
+    case FETCH_TITLES_SUCCESS:
+      const tempUniqueTags = ["all"];
+      action.payload.recipes.map(title => {
+        title.tags.map(tag => {
+          if (!tempUniqueTags.includes(tag)) {
+            tempUniqueTags.push(tag);
+          }
+        });
+      });
+      return {
+        ...state,
+        titles: action.payload,
+        fetchingTitles: false,
+        error: null,
+        uniqueTags: tempUniqueTags
+      };
+    case FETCH_TITLES_FAILURE:
+      return {
+        ...state,
+        error: action.payload,
+        fetchingTitles: false
       };
     default:
       return state;

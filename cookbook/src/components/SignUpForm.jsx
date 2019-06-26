@@ -5,8 +5,7 @@ import {signUp} from "../actions";
 
 class SignUpForm extends React.Component {
   state = {
-      name: "",
-      email: "",
+      username: "",
       password1: "",
     password2: "",
     passwordMatch: true
@@ -23,13 +22,12 @@ class SignUpForm extends React.Component {
     e.preventDefault();
     if (this.state.password1 === this.state.password2) {
       const newUser= {
-        username: this.state.email,
+        username: this.state.username,
         password: this.state.password1,
       }
       this.props.signUp(newUser);
       this.setState({
-          name: "",
-          email: "",
+          username: "",
           password1: "",
           password2: ""
       });
@@ -46,20 +44,13 @@ class SignUpForm extends React.Component {
         ) : (
           <>
             <form onSubmit={this.signUp}>
-              <h2>Welcom to your Secret Recipe Cookbook</h2>
-              <p>Name:</p>
+              <h2>Welcome to your Secret Recipe Cookbook</h2>
+
+              <p>Username:</p>
               <input
                 type="text"
                 required
-                name="name"
-                onChange={this.handleChanges}
-                value={this.input}
-              />
-              <p>Email:</p>
-              <input
-                type="email"
-                required
-                name="email"
+                name="username"
                 onChange={this.handleChanges}
                 value={this.input}
               />
@@ -86,7 +77,7 @@ class SignUpForm extends React.Component {
               )}
               <button type="submit">Sign Up</button>
               <p>
-                Already a member? Sign in <Link to="/sign-in">here</Link>
+                Already a member? Sign in <Link to="/log-in">here</Link>
               </p>
             </form>
             <div className="image-right">

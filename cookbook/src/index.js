@@ -11,8 +11,9 @@ import "./index.css";
 import LoginPage from "./view/LoginPage";
 import SignUpPage from "./view/SignUpPage";
 import AddRecipe from "./view/AddRecipe";
-// import RecipeList from "./view/RecipesList";
+import RecipesDashboard from "./view/RecipesDashboard";
 // import SingleRecipe from "./view/SingleRecipe";
+import PrivateRoute from "./components/PrivateRoute";
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
@@ -25,11 +26,12 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <Switch>
-        <Route exact path="/" component={LoginPage} />
+      <PrivateRoute exact path="/" component={RecipesDashboard} />
+        <Route path="/log-in" component={LoginPage} />
         <Route path="/sign-up" component={SignUpPage} />
-        {/* <Route path="/recipes" component={RecipeList} />
-        <Route path="/recipes/:id" component={SingleRecipe} /> */}
-        <Route path="/add-recipe" component={AddRecipe} />
+
+         {/* <PrivateRoute path="/recipes/view/:id" component={SingleRecipe} />  */}
+        <PrivateRoute path="/add-recipe" component={AddRecipe} />
       </Switch>
     </Router>
   </Provider>,
