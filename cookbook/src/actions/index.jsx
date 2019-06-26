@@ -49,10 +49,10 @@ export const FETCH_RECIPE_START = "FETCH_RECIPE_START";
 export const FETCH_RECIPE_SUCCESS = "FETCH_RECIPE_SUCCESS";
 export const FETCH_RECIPE_FAILURE = "FETCH_RECIPE_FAILURE";
 
-export const getRecipe = () => dispatch => {
+export const getRecipe = (recipeID) => dispatch => {
   dispatch({ type: FETCH_RECIPE_START });
   axiosWithAuth()
-    .get("/recipes")
+    .get(`/recipes/${recipeID}`)
     .then(res => {
       dispatch({ type: FETCH_RECIPE_SUCCESS, payload: res.data.recipes });
     })
@@ -70,7 +70,7 @@ export const addRecipe = newRecipe => dispatch => {
   axiosWithAuth()
     .post("/recipes", newRecipe)
     .then(res => {
-      dispatch({ type: ADD_RECIPE_SUCCESS, payload: res });
+      dispatch({ type: ADD_RECIPE_SUCCESS, payload: res.data });
     })
     .catch(err => {
       dispatch({ type: ADD_RECIPE_FAILURE, payload: err });
@@ -86,7 +86,7 @@ export const updateRecipe = (recipeID, updatedRecipe) => dispatch => {
   axiosWithAuth()
     .put(`/recipes/${recipeID}`, updatedRecipe)
     .then(res => {
-      dispatch({ type: UPDATE_RECIPE_SUCCESS, payload: res });
+      dispatch({ type: UPDATE_RECIPE_SUCCESS, payload: res.data });
     })
     .catch(err => {
       dispatch({ type: UPDATE_RECIPE_FAILURE, payload: err });
@@ -102,7 +102,7 @@ export const deleteRecipe = recipeID => dispatch => {
   axiosWithAuth()
     .delete(`/recipes/${recipeID}`)
     .then(res => {
-      dispatch({ type: DELETE_RECIPE_SUCCESS, payload: res });
+      dispatch({ type: DELETE_RECIPE_SUCCESS, payload: res.data });
     })
     .catch(err => {
       dispatch({ type: DELETE_RECIPE_FAILURE, payload: err });
@@ -113,12 +113,12 @@ export const FETCH_TITLES_START= "FETCH_TITLES_START";
 export const FETCH_TITLES_SUCCESS = "FETCH_TITLES_SUCCESS";
 export const FETCH_TITLES_FAILURE= "FETCH_TITLES_FAILURE";
 
-export const fetchTitles = (recipeID) => dispatch =>{
+export const getTitles = (recipeID) => dispatch =>{
   dispatch({ type: FETCH_TITLES_START });
   axiosWithAuth()
-    .delete(`PLACEHOLDER/${recipeID}`)
+    .get(`/recipes`)
     .then(res => {
-      dispatch({ type: FETCH_TITLES_SUCCESS, payload: res });
+      dispatch({ type: FETCH_TITLES_SUCCESS, payload: res.data });
     })
     .catch(err => {
       dispatch({ type: FETCH_TITLES_FAILURE, payload: err });

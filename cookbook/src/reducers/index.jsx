@@ -23,7 +23,7 @@ import {
 } from "../actions";
 
 const initialState = {
-  recipes: [],
+  recipe: [],
   titles:[],
   error: null,
   signingUp: false,
@@ -32,7 +32,9 @@ const initialState = {
   addingRecipe: false,
   updatingRecipe: false,
   deletingRecipe: false,
-  fetchingTitles: false
+  fetchingTitles: false,
+  uniqueTags:["all"],
+  currentRecipes: []
 };
 
 const reducer = (state = initialState, action) => {

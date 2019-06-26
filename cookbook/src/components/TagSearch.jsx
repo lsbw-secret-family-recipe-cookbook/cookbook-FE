@@ -1,49 +1,71 @@
 import React from "react";
-import {connect} from "react-redux";
-import {getRecipe} from "../actions";
+import { connect } from "react-redux";
+import { getTitles } from "../actions";
+import RecipeCard from "./RecipeCard";
 
 class TagSearch extends React.Component {
-    state={
-        customTag: '',
-        currentRecipes: [],
-        tagsArray:[]
-    }
-    componentDidMount(){
-        getRecipe()
-    }
+  state = {
+    customTag: "",
+    currentTag: "all"
+  };
+  componentDidMount() {
+    getTitles();
+    this.props.titles.map(title => {
+      title.tags.map(tag => {
+        if (!this.props.uniqueTags.toLowerCase().includes(tag.toLowerCase())) {
+          this.props.uniqueTags.push(tag);
+        }
+      });
+    });
+  }
 
-    recipes.map(recipe=> {
-        recipe.tags.map(tag=>{
-        tagsArray.includes(tag)
-    }))
-    
-    handleChanges = e => {
-        this.setState({[e.target.name]: e.target.value.toLowerCase()})
-    }
+  handleChanges = e => {
+    this.setState({ [e.target.name]: e.target.value.toLowerCase() });
+  };
 
-    render(){
+  searchRecipes = tag => {
+    if (tag === "all") {
+      this.setState({ currentRecipes: this.props.recipes });
+    } else {
+      const filteredRecipes = this.props.recipes.map(recipe => {
+        recipe.tags.includes(tag);
+      });
+      this.setState({ currentRecipes: filteredRecipes });
+    }
+  };
+
+  customSearch = (e)=> {
+      e.preventDefault();
+      this.searchRecipes(this.state.customTag)
+  }
+
+  render() {
     return (
-        <div className="search-wrapper">
-        <input 
-        type="text" 
-        placeholder="Custom Tag" 
-        name="search" 
-        onChange={this.handleChanges}
-        value={this.customTag}
+      <div className="search-wrapper">
+        {this.props.uniqueTags.map(tag => (
+          <p>{tag}</p>
+        ))}
+        <input
+          type="text"
+          placeholder="Custom Tag"
+          name="customTag"
+          onChange={this.handleChanges}
+          value={this.customTag}
         />
-        </div>
+        <button onClick={this.customSearch}>Search by costom tag</button>
+      </div>
     );
-
+  }
 }
-}
 
-const mapStateToProps=state=> ({
-    recipes: state.recipes,
-    fetchingRecipes: state.fetchingRecipes,
-})
+const mapStateToProps = state => ({
+  titles: state.titles,
+  fetchingTitles: state.fetchingTitles,
+  uniqueTags: state.uniqueTags,
+  currentRecipes: state.currentRecipes
+});
 
 export default connect(
-    mapStateToProps,
-    {getRecipe}
+  mapStateToProps,
+  { getTitles }
 )(TagSearch);
-

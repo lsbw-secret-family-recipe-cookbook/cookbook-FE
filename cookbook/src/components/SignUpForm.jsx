@@ -84,7 +84,7 @@ class SignUpForm extends React.Component {
               )}
               <button type="submit">Sign Up</button>
               <p>
-                Already a member? Sign in <Link to="/sign-in">here</Link>
+                Already a member? Sign in <Link to="/log-in">here</Link>
               </p>
             </form>
             <div className="image-right">

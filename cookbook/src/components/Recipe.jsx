@@ -16,11 +16,11 @@ class Recipe extends React.Component {
         </div>
         <h3>Ingredients</h3>
         {this.props.recipes.ingredients.map((ingredient, index) => {
-          <ShowArrayItem listNum={index + 1} item={ingredient} key={index} />;
+          <ShowArrayItem listNum={index + 1} item={ingredient} key={`i${index}`} />;
         })}
         <h3>Directions</h3>
-        {this.props.recipes.instructions.map((istruction, index) => {
-          <ShowArrayItem listNum={index + 1} item={instruction} key={index} />;
+        {this.props.recipes.instructions.map((instruction, index) => {
+          <ShowArrayItem listNum={index + 1} item={instruction} key={`d${index}`} />;
         })}
         <h3>Note</h3>
         <p>{this.props.recipes.notes}</p>
