@@ -1,68 +1,73 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getTitles } from "../actions";
-import RecipeCard from "./RecipeCard";
+import RecipeCards from "./RecipeCards";
 
 class TagSearch extends React.Component {
   state = {
-    customTag: "",
-    currentTag: "all"
+    currentTag: "all",
+    currentRecipes: []
   };
+
   componentDidMount() {
     getTitles();
-    this.props.titles.map(title => {
-      title.tags.map(tag => {
-        if (!this.props.uniqueTags.toLowerCase().includes(tag.toLowerCase())) {
-          this.props.uniqueTags.push(tag);
-        }
+    if (this.props.titles) {
+      this.setState({
+        currentRecipes: this.props.titles
       });
-    });
+    }
   }
+
 
   handleChanges = e => {
     this.setState({ [e.target.name]: e.target.value.toLowerCase() });
   };
 
-  searchRecipes = tag => {
-    if (tag === "all") {
-      this.setState({ currentRecipes: this.props.recipes });
-    } else {
-      const filteredRecipes = this.props.recipes.map(recipe => {
-        recipe.tags.includes(tag);
+  searchRecipes = (e, selectedTag) => {
+    e.preventDefault();
+    if (selectedTag === "all") {
+      this.setState({
+        currentRecipes: [...this.props.titles]
       });
-      this.setState({ currentRecipes: filteredRecipes });
+    } else {
+      const filteredRecipes = [];
+      this.props.titles.map(recipe => {
+        if (recipe.tags.includes(selectedTag)) {
+          filteredRecipes.push(recipe);
+        }
+      });
+      this.setState({ currentRecipes: [...filteredRecipes] });
     }
   };
 
-  customSearch = (e)=> {
-      e.preventDefault();
-      this.searchRecipes(this.state.customTag)
-  }
+  customSearch = e => {
+    e.preventDefault();
+    this.searchRecipes(this.state.customTag);
+  };
 
   render() {
+    if (!this.props.titles) {
+      return <h2>Loading...</h2>;
+    }
+
     return (
       <div className="search-wrapper">
-        {this.props.uniqueTags.map(tag => (
-          <p>{tag}</p>
+        {this.props.uniqueTags.map((tag, index) => (
+          <button onClick={e => this.searchRecipes(e, tag)} key={`t${index}`}>
+            {tag}
+          </button>
         ))}
-        <input
-          type="text"
-          placeholder="Custom Tag"
-          name="customTag"
-          onChange={this.handleChanges}
-          value={this.customTag}
-        />
-        <button onClick={this.customSearch}>Search by costom tag</button>
+        {console.log("tag search", this.state.currentRecipes)}
+        <RecipeCards recipes={this.state.currentRecipes} />
       </div>
     );
   }
 }
 
 const mapStateToProps = state => ({
-  titles: state.titles,
+  titles: state.titles.recipes,
   fetchingTitles: state.fetchingTitles,
-  uniqueTags: state.uniqueTags,
-  currentRecipes: state.currentRecipes
+  uniqueTags: state.uniqueTags
 });
 
 export default connect(

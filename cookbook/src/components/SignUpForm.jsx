@@ -45,14 +45,7 @@ class SignUpForm extends React.Component {
           <>
             <form onSubmit={this.signUp}>
               <h2>Welcome to your Secret Recipe Cookbook</h2>
-              {/* <p>Name:</p>
-              <input
-                type="text"
-                required
-                name="name"
-                onChange={this.handleChanges}
-                value={this.input}
-              /> */}
+
               <p>Username:</p>
               <input
                 type="text"
