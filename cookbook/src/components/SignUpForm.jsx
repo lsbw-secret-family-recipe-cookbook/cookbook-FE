@@ -2,6 +2,8 @@ import React from "react";
 import { Link, withRouter} from "react-router-dom";
 import { connect } from "react-redux";
 import {signUp} from "../actions";
+import "./SignUpForm.css"
+
 
 class SignUpForm extends React.Component {
   state = {
@@ -39,6 +41,7 @@ class SignUpForm extends React.Component {
   render() {
     return (
       <div className="signup-form-wrapper">
+
         {this.props.signingUp ? (
           <h2>Loading</h2>
         ) : (
@@ -80,9 +83,6 @@ class SignUpForm extends React.Component {
                 Already a member? Sign in <Link to="/log-in">here</Link>
               </p>
             </form>
-            <div className="image-right">
-              <p>Add image here later</p>
-            </div>
           </>
         )}
       </div>

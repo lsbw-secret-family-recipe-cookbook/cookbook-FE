@@ -22,7 +22,7 @@ class SignInForm extends React.Component {
 
   logIn = e => {
     e.preventDefault();
-    this.props.logIn(this.state.credentials);
+    this.props.logIn(this.state.credentials)
     this.setState({
       credentials: {
         username: "",
@@ -69,6 +69,7 @@ class SignInForm extends React.Component {
             </div>
           </>
         )}
+        {/* {this.props.success?  <link to="/"><button>Go To Home page</button></link> : } */}
       </div>
     );
   }

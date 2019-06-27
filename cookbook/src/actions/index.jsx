@@ -14,7 +14,7 @@ export const signUp = credentials => dispatch => {
     )
     .then(res => {
       dispatch({ type: SIGN_UP_SUCCESS });
-      localStorage.setItem("token", res.data.token);
+      // localStorage.setItem("token", res.data.token);
       return true;
     })
     .catch(err => {
