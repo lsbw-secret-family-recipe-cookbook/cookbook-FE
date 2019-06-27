@@ -1,9 +1,9 @@
 import React from "react";
-import UpdateForm from "../components/UpdateForm";
+import RecipeUpdateForm from "../components/RecipeUpdateForm";
 
 const UpdateRecipe=props=> {
     return(
-        <UpdateForm/>
+        <RecipeUpdateForm/>
     )
 }
 

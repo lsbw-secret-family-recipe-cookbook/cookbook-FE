@@ -5,28 +5,23 @@ import { getRecipe, updateRecipe } from "../actions";
 class UpdateForm extends React.Component {
   state = {
     recipe: {
-      title: "",
-      source: "",
-      ingredients: [],
-      directions: [],
-      note: "",
-      tags: []
+      title: this.props.recipe.title,
+      source: this.props.recipe.source,
+      ingredients: { ...this.props.ingredients },
+      directions: { ...this.props.instructions },
+      note: this.props.recipe.title,
+      tags: { ...this.props.recipe.tags }
     }
   };
-  componentDidMount(){
-    if (!this.props.recipe) {
-        
-    }
-      console.log("1",this.props)
-      console.log("2",this.props.recipe)
-    //   const storedRecipe=localStorage.getItem(this.props.recipe.id)
-    //     this.setState({recipe: JSON.parse(storedRecipe)})
-    }
-
-
-  //   const ingredientObj={...this.props.recipe.ingredients}
-  //   const directionsObj={...this.props.recipe.instructions}
-  //   const tagObj={...this.props.recipe.tags}
+  componentDidMount() {
+    // const storedRecipe = localStorage.getItem(this.props.recipe.id);
+    // this.setState({ recipe: JSON.parse(storedRecipe) });
+    // if (this.props.recipe) {
+    //   // this.props.getRecipe(this.props.recipe)
+    // }
+    console.log("1", this.props);
+    console.log("2", this.props.recipe);
+  }
 
   handleChanges = e => {
     this.setState({
@@ -41,21 +36,24 @@ class UpdateForm extends React.Component {
     this.props.updateRecipe(recipeID, updatedRecipe);
     this.setState({
       recipe: {
-        title: this.props.recipe.title||"",
-        source: this.props.recipe.source||"",
-        ingredients: {...this.props.ingredients}||{},
-        directions: {...this.props.instructions}||{},
-        note: this.props.recipe.title||"",
-        tags: {...this.props.recipe.tags}||{}
+        title: this.props.recipe.title || "",
+        source: this.props.recipe.source || "",
+        ingredients: { ...this.props.ingredients } || {},
+        directions: { ...this.props.instructions } || {},
+        note: this.props.recipe.title || "",
+        tags: { ...this.props.recipe.tags } || {}
       }
     });
   };
 
   render() {
-    return (
-      <div className="update-form">
-      {console.log(this.props.recipe)}
-        {/* <h2>Update Recipe</h2>
+    if (this.props.fetchingRecipe || !this.props.recipe) {
+      return <h2>Loading Recipe for Update Form...</h2>;
+    } else {
+      return (
+        <div className="update-form">
+          {console.log(this.props.recipe)}
+          <h2>Update Recipe</h2>
         <h3>Title:</h3>
         <input
           type="text"
@@ -70,8 +68,8 @@ class UpdateForm extends React.Component {
           onChange={this.handleChanges}
           value={this.props.recipe.source}
         />
-        <h3>Tags:</h3> */}
-        {/* {this.props.recipe.tags.map((tag, index) => (
+        <h3>Tags:</h3>
+          {this.props.recipe.tags.map((tag, index) => (
           <input
             type="text"
             name={`tag${index}`}
@@ -98,15 +96,16 @@ class UpdateForm extends React.Component {
             value={direction}
             key={`d${index}`}
             />
-        ))} */}
-        <h3>Notes:</h3>
-        {/* <input
+        ))}
+          <h3>Notes:</h3>
+          <input
             type="text"
             name="notes"
             value={this.state.note}
-            /> */}
-      </div>
-    );
+            />
+        </div>
+      );
+    }
   }
 }
 

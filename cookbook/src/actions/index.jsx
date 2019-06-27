@@ -14,7 +14,7 @@ export const signUp = credentials => dispatch => {
     )
     .then(res => {
       dispatch({ type: SIGN_UP_SUCCESS });
-      // localStorage.setItem("token", res.data.token);
+      localStorage.setItem("token", res.data.token);
       return true;
     })
     .catch(err => {
@@ -49,7 +49,7 @@ export const FETCH_RECIPE_START = "FETCH_RECIPE_START";
 export const FETCH_RECIPE_SUCCESS = "FETCH_RECIPE_SUCCESS";
 export const FETCH_RECIPE_FAILURE = "FETCH_RECIPE_FAILURE";
 
-export const getRecipe = (recipeID) => dispatch => {
+export const getRecipe = recipeID => dispatch => {
   dispatch({ type: FETCH_RECIPE_START });
   axiosWithAuth()
     .get(`/recipes/${recipeID}`)
@@ -109,11 +109,11 @@ export const deleteRecipe = recipeID => dispatch => {
     });
 };
 
-export const FETCH_TITLES_START= "FETCH_TITLES_START";
+export const FETCH_TITLES_START = "FETCH_TITLES_START";
 export const FETCH_TITLES_SUCCESS = "FETCH_TITLES_SUCCESS";
-export const FETCH_TITLES_FAILURE= "FETCH_TITLES_FAILURE";
+export const FETCH_TITLES_FAILURE = "FETCH_TITLES_FAILURE";
 
-export const getTitles = (recipeID) => dispatch =>{
+export const getTitles = recipeID => dispatch => {
   dispatch({ type: FETCH_TITLES_START });
   axiosWithAuth()
     .get(`/recipes`)

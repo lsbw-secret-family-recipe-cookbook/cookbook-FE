@@ -75,7 +75,8 @@ class SignInForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  loggingIn: state.loggingIn
+  loggingIn: state.loggingIn,
+  success: state.success
 });
 
 export default withRouter(connect(
