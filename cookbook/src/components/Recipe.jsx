@@ -9,12 +9,17 @@ class Recipe extends React.Component {
   componentDidMount() {
     this.props.getRecipe(this.props.recipeID);
   }
+  componentDidUpdate(){
+    localStorage.setItem(
+      this.props.recipeID,
+      JSON.stringify(this.props.recipe)
+    )
+  }
 
   deleteRecipe=(e, ID)=> {
     e.preventDefault();
     this.props.deleteRecipe(ID)
   }
-
 
   render() {
     if (this.props.fetchingRecipe||!this.props.recipe) {
@@ -48,7 +53,7 @@ class Recipe extends React.Component {
           ))}
         <h3>Note</h3>
         <p>{this.props.recipe.notes}</p>
-        <Link to={`/recipes/update/${this.props.recipeID}`} key={this.props.recipeID}>Update Recipe</Link>
+        <Link to={`/recipes/edit/${this.props.recipeID}`} key={this.props.recipeID}>Update Recipe</Link>
 
         <button onClick={(e)=>this.deleteRecipe(e, this.props.recipeID)}>Delete Recipe</button>
       </div>

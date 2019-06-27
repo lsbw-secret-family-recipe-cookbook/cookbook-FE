@@ -33,7 +33,8 @@ class RecipeSideBar extends React.Component {
 
 const mapStateToProps = state => ({
   titles: state.titles.recipes,
-  fetchingTitles: state.fetchingTitles
+  fetchingTitles: state.fetchingTitles,
+  titlesOnly: state.titlesOnly
 });
 
 export default connect(

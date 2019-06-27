@@ -25,6 +25,7 @@ import {
 const initialState = {
   recipe: null,
   titles: [],
+  // titlesOnly:[],
   error: null,
   signingUp: false,
   loggingIn: false,
@@ -173,7 +174,8 @@ const reducer = (state = initialState, action) => {
         fetchingTitles: false,
         error: null,
         uniqueTags: tempUniqueTags,
-        currentRecipes: action.payload
+        currentRecipes: action.payload,
+        // titlesOnly: tempTitlesOnly
       };
     case FETCH_TITLES_FAILURE:
       return {
