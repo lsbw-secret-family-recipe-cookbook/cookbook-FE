@@ -1,9 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { addRecipe } from "../actions";
+import { getRecipe, updateRecipe } from "../actions";
+import { withRouter } from "react-router-dom";
 import ShowArrayItem from "./ShowArrayItem";
+import {axiosWithAuth} from "../util/axiosWithAuth";
 
-class RecipeForm extends React.Component {
+class RecipeUpdateForm extends React.Component {
   state = {
     title: "",
     source: "",
@@ -30,6 +32,64 @@ class RecipeForm extends React.Component {
       "Quick"
     ]
   };
+
+  componentDidMount() {
+    console.log("that", this.props)
+    if (!this.props.recipe) {
+
+        axiosWithAuth()
+          .get(`/recipes/${this.props.match.params.id}`)
+          .then(res => {
+            console.log(res.data)
+          //   this.setState({
+          //     title: this.props.recipe.title,
+          //     source: this.props.recipe.source,
+          //     ingredients: this.props.recipe.ingredients,
+          //     directions: this.props.recipe.instructions,
+          //     tags: this.props.recipe.tags,
+          //     note:"",
+          //     fullNote: this.props.recipe.notes.split("||"),
+          //     ingredientValue: "",
+          //     directionValue: "",
+          //     tag: ""
+          // })
+          .catch(err => {
+           
+          });
+      })
+    } else {
+      this.setState({
+        title: this.props.recipe.title,
+        source: this.props.recipe.source,
+        ingredients: this.props.recipe.ingredients,
+        directions: this.props.recipe.instructions,
+        tags: this.props.recipe.tags,
+        note:"",
+        fullNote: this.props.recipe.notes.split("||"),
+        ingredientValue: "",
+        directionValue: "",
+        tag: ""
+      });
+    }
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.recipe !== this.props.recipe && this.props.success) {
+      console.log("This", prevProps.recipe)
+      this.setState({
+        title: this.props.recipe.title,
+        source: this.props.recipe.source,
+        ingredients: this.props.recipe.ingredients,
+        directions: this.props.recipe.instructions,
+        tags: this.props.recipe.tags,
+        note: "",
+        fullNote: this.props.recipe.notes.split("||"),
+        ingredientValue: "",
+        directionValue: "",
+        tag: ""
+      });
+    }
+  }
 
   handleChanges = e => {
     e.persist();
@@ -72,24 +132,24 @@ class RecipeForm extends React.Component {
       };
     });
   };
-  addCustomTag = (e)=> {
+  addCustomTag = e => {
     e.preventDefault();
-    const newTags=[...this.state.tags]
-    newTags.push(this.state.tag)
+    const newTags = [...this.state.tags];
+    newTags.push(this.state.tag);
     this.setState({
       tags: newTags,
       tag: ""
-    })
-  }
+    });
+  };
   addNote = e => {
     e.preventDefault();
-    const newNote= this.state.fullNote
-    newNote.push(this.state.note)
+    const newNote = this.state.fullNote;
+    newNote.push(this.state.note);
     this.setState({
       fullNote: newNote,
       note: ""
-    })
-  }
+    });
+  };
 
   deleteIngredient = (e, index) => {
     e.preventDefault();
@@ -116,19 +176,19 @@ class RecipeForm extends React.Component {
     });
   };
 
-  deleteNote = (e,index) => {
+  deleteNote = (e, index) => {
     e.preventDefault();
-    const newNote = [...this.state.fullNote]
-    newNote.splice(index,1)
+    const newNote = [...this.state.fullNote];
+    newNote.splice(index, 1);
     this.setState({
       fullNote: newNote
-    })
-  }
+    });
+  };
 
-  submitRecipe = e => {
+  updateRecipe = e => {
     e.preventDefault();
-    const fullNoteString= this.state.fullNote.join("||")
-    const newRecipe = {
+    const fullNoteString = this.state.fullNote.join("||");
+    const updatedRecipe = {
       title: this.state.title,
       source: this.state.source,
       ingredients: this.state.ingredients,
@@ -136,24 +196,26 @@ class RecipeForm extends React.Component {
       tags: this.state.tags,
       notes: fullNoteString
     };
-    this.props.addRecipe(newRecipe);
+    this.props.updateRecipe(this.props.match.params.id, updatedRecipe);
+    console.log("updatedRecipe", updatedRecipe)
   };
 
   render() {
     return (
       <div className="recipe-form">
-        <h2>Create New Recipe</h2>
-        <form onSubmit={this.submitRecipe}>
+        <h2>Edit Recipe</h2>
+        <form onSubmit={this.updateRecipe}>
+          {console.log(this.props)}
           <input
-            placeholder="Title"
+            placeholder={this.state.title}
             type="text"
             required
             name="title"
             onChange={this.handleChanges}
             value={this.state.title}
           />
-          <input
-            placeholder="Source"
+           <input
+            placeholder={this.state.source}
             type="text"
             name="source"
             onChange={this.handleChanges}
@@ -252,7 +314,7 @@ class RecipeForm extends React.Component {
             </div>
           ))}
 
-          <button type="submit">Add Recipe</button>
+          <button type="submit">Submit Recipe</button> 
         </form>
       </div>
     );
@@ -260,10 +322,15 @@ class RecipeForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  addingRecipe: state.addingRecipe
+  recipe: state.recipe,
+  fetchingRecipe: state.fetchingRecipe,
+  updatingRecipe: state.updatingRecipe,
+  success: state.success
 });
 
-export default connect(
-  mapStateToProps,
-  { addRecipe }
-)(RecipeForm);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getRecipe, updateRecipe }
+  )(RecipeUpdateForm)
+);

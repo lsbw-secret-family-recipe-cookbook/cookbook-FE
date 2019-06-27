@@ -23,17 +23,19 @@ import {
 } from "../actions";
 
 const initialState = {
-  recipe: [],
+  recipe: null,
   titles: [],
   error: null,
   signingUp: false,
   loggingIn: false,
-  fetchingRecipes: false,
+  fetchingRecipe: false,
   addingRecipe: false,
   updatingRecipe: false,
   deletingRecipe: false,
   fetchingTitles: false,
   uniqueTags: ["all"],
+  currentRecipes:[],
+  success: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -42,120 +44,140 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: null,
-        signingUp: true
+        signingUp: true,  
+        success: false
+
       };
     case SIGN_UP_SUCCESS:
       return {
         ...state,
         error: null,
-        signingUp: false
+        signingUp: false,
+          success: true
       };
     case SIGN_UP_FAILURE:
       return {
         ...state,
         error: action.payload,
-        signingUp: null
+        signingUp: null,
+        success: false
       };
     case LOG_IN_START:
       return {
         ...state,
         error: null,
-        loggingIn: true
+        loggingIn: true,
+        success: false
       };
     case LOG_IN_SUCCESS:
       return {
         ...state,
         error: null,
-        loggingIn: false
+        loggingIn: false,
+        success: true
       };
     case LOG_IN_FAILURE:
       return {
         ...state,
         error: action.payload,
-        loggingIn: false
+        loggingIn: false,
+        success: false
       };
     case FETCH_RECIPE_START:
       return {
         ...state,
-        fetchingRecipes: true,
-        error: null
+        fetchingRecipe: true,
+        error: null,
+        success: false
       };
     case FETCH_RECIPE_SUCCESS:
       return {
         ...state,
         error: null,
-        fetchingRecipes: false,
-        recipes: action.payload
+        fetchingRecipe: false,
+        recipe: action.payload,
+        success: true
       };
     case FETCH_RECIPE_FAILURE:
       return {
         ...state,
         error: action.payload,
-        fetchingRecipes: false
+        fetchingRecipe: false,
+        success: false
       };
     case ADD_RECIPE_START:
       return {
         ...state,
         error: null,
         addingRecipe: true,
-        recipes: action.payload
+        recipes: action.payload,
+        success: false
       };
     case ADD_RECIPE_SUCCESS:
       return {
         ...state,
         error: null,
         addingRecipe: false,
-        recipes: action.payload
+        recipes: action.payload,
+        success: true
       };
     case ADD_RECIPE_FAILURE:
       return {
         ...state,
         error: action.payload,
-        addingRecipe: false
+        addingRecipe: false,
+        success: false
       };
     case UPDATE_RECIPE_START:
       return {
         ...state,
         error: null,
-        updatingRecipe: true
+        updatingRecipe: true,
+        success: false
       };
     case UPDATE_RECIPE_SUCCESS:
       return {
         ...state,
         error: null,
         updatingRecipe: false,
-        recipes: action.payload
+        recipe: action.payload,
+        success: true
       };
     case UPDATE_RECIPE_FAILURE:
       return {
         ...state,
         error: action.payload,
-        updatingRecipe: false
+        updatingRecipe: false,
+        success: false
       };
     case DELETE_RECIPE_START:
       return {
         ...state,
         error: null,
-        deletingRecipe: true
+        deletingRecipe: true,
+        success: false
       };
     case DELETE_RECIPE_SUCCESS:
       return {
         ...state,
         recipes: action.payload,
         deletingRecipe: false,
-        error: null
+        error: null,
+        success: true
       };
     case DELETE_RECIPE_FAILURE:
       return {
         ...state,
         error: action.payload,
-        deletingRecipe: false
+        deletingRecipe: false,
+        success: false
       };
     case FETCH_TITLES_START:
       return {
         ...state,
         error: null,
-        fetchingTitles: true
+        fetchingTitles: true,
+        success: false
       };
     case FETCH_TITLES_SUCCESS:
       const tempUniqueTags = ["all"];
@@ -171,13 +193,16 @@ const reducer = (state = initialState, action) => {
         titles: action.payload,
         fetchingTitles: false,
         error: null,
-        uniqueTags: tempUniqueTags
+        uniqueTags: tempUniqueTags,
+        currentRecipes: action.payload,
+        success: true
       };
     case FETCH_TITLES_FAILURE:
       return {
         ...state,
         error: action.payload,
-        fetchingTitles: false
+        fetchingTitles: false,
+        success: false
       };
     default:
       return state;

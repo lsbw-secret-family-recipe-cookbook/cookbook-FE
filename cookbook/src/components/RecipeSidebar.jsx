@@ -19,7 +19,7 @@ class RecipeSideBar extends React.Component {
 
             {this.props.titles && this.props.titles.map(title => {
               return (
-                <Link to={`/recipes/${title.id}`} key={title.id}>
+                <Link to={`/recipes/view/${title.id}`} key={title.id}>
                   <p>{title.title}</p>
                 </Link>
               );
@@ -33,7 +33,8 @@ class RecipeSideBar extends React.Component {
 
 const mapStateToProps = state => ({
   titles: state.titles.recipes,
-  fetchingTitles: state.fetchingTitles
+  fetchingTitles: state.fetchingTitles,
+  titlesOnly: state.titlesOnly
 });
 
 export default connect(
