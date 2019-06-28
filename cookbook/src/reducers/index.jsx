@@ -114,6 +114,7 @@ const reducer = (state = initialState, action) => {
         success: false
       };
     case ADD_RECIPE_SUCCESS:
+      console.log('RECIPE SUCCESS: ', action.payload);
       return {
         ...state,
         error: null,
@@ -181,8 +182,8 @@ const reducer = (state = initialState, action) => {
       };
     case FETCH_TITLES_SUCCESS:
       const tempUniqueTags = ["all"];
-      action.payload.recipes.foreach(title => {
-        title.tags.foreach(tag => {
+      action.payload.recipes.forEach(title => {
+        title.tags.forEach(tag => {
           if (!tempUniqueTags.includes(tag)) {
             tempUniqueTags.push(tag);
           }
