@@ -188,13 +188,14 @@ const reducer = (state = initialState, action) => {
           }
         });
       });
+      console.log("payload", action.payload.recipes)
       return {
         ...state,
         titles: action.payload,
         fetchingTitles: false,
         error: null,
         uniqueTags: tempUniqueTags,
-        currentRecipes: action.payload,
+        currentRecipes: action.payload.recipes,
         success: true
       };
     case FETCH_TITLES_FAILURE:

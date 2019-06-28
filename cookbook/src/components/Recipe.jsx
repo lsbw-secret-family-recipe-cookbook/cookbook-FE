@@ -1,20 +1,21 @@
 import React from "react";
 import { connect } from "react-redux";
 import { Link, withRouter } from "react-router-dom";
+import { FaRegTrashAlt, FaRegEdit } from "react-icons/fa";
 
 import ShowArrayItem from "./ShowArrayItem";
 import { getRecipe, deleteRecipe } from "../actions";
+import "../less/Recipe.less";
 
 class Recipe extends React.Component {
-
   componentDidMount() {
     this.props.getRecipe(this.props.recipeID);
   }
   componentDidUpdate(prevProps) {
-    localStorage.setItem(
-      this.props.recipeID,
-      JSON.stringify(this.props.recipe)
-    );
+    // localStorage.setItem(
+    //   this.props.recipeID,
+    //   JSON.stringify(this.props.recipe)
+    // );
 
     if (prevProps.recipeID !== this.props.recipeID) {
       this.props.getRecipe(this.props.recipeID);
@@ -31,13 +32,16 @@ class Recipe extends React.Component {
       return <h2>Loading Recipe for Single Recipe Page...</h2>;
     }
     return (
-      <div className="recipe">
+      <div className="recipe-view-wrapper">
         <h2>{this.props.recipe.title}</h2>
         <p>Source: {this.props.recipe.source}</p>
+
         <h3>Tags</h3>
         <div className="tags">
           {this.props.recipe.tags.map((tag, index) => (
-            <p key={`t${index}`}>{tag}</p>
+            <p key={`t${index}`} className="tag">
+              {tag}
+            </p>
           ))}
         </div>
         <h3>Ingredients</h3>
@@ -65,12 +69,14 @@ class Recipe extends React.Component {
           }}
           key={this.props.recipeID}
         >
-          Edit Recipe
+          <FaRegEdit size={30} color="#D8E4DA" />
         </Link>
 
-        <button onClick={e => this.deleteRecipe(e, this.props.recipeID)}>
-          <i class="far fa-trash-alt"></i>
-        </button>
+        <FaRegTrashAlt
+          size={30}
+          color="#D8E4DA"
+          onClick={e => this.deleteRecipe(e, this.props.recipeID)}
+        />
       </div>
     );
   }
@@ -81,7 +87,9 @@ const mapStateToProps = state => ({
   fetchingRecipe: state.fetchingRecipe
 });
 
-export default withRouter(connect(
-  mapStateToProps,
-  { getRecipe, deleteRecipe }
-)(Recipe));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { getRecipe, deleteRecipe }
+  )(Recipe)
+);
