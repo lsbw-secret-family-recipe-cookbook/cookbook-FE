@@ -24,11 +24,10 @@ class SignUpForm extends React.Component {
     e.preventDefault();
     if (this.state.password1 === this.state.password2) {
       const newUser = {
-        history: this.props.history,
         username: this.state.username,
         password: this.state.password1
       };
-      this.props.signUp(newUser);
+      this.props.signUp(newUser, this.props.history);
       this.setState({
         username: "",
         password1: "",
