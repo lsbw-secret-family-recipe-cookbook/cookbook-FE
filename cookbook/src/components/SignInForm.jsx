@@ -3,6 +3,8 @@ import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import { logIn } from "../actions";
 import { withRouter } from "react-router";
+import logo from "../assets/secret-cookbook-logo.png";
+import "../less/SignInForm.less";
 
 class SignInForm extends React.Component {
   state = {
@@ -37,13 +39,19 @@ class SignInForm extends React.Component {
       return <Redirect to="/" />;
     }
     return (
-      <div className="signin-form-wrapper">
+      <div className="login-form-wrapper">
         {this.props.loggingIn ? (
           <h2>Loading</h2>
         ) : (
             <>
-              <form onSubmit={this.logIn}>
-                <h2>Sign in to your Secret Recipe Cookbook</h2>
+              <form className="login-form" onSubmit={this.logIn}>
+                <div className="login-form-header">
+                  <div className="login-logo-wrapper">
+                    <img src={logo} alt="logo" className="login-logo" />
+                  </div>
+                  <h3>Log in to</h3>
+                  <h2> Secret Cookbook</h2>
+                </div>
                 <p>Username</p>
                 <input
                   type="text"
@@ -52,7 +60,7 @@ class SignInForm extends React.Component {
                   onChange={this.handleChanges}
                   value={this.input}
                 />
-                <p>Password:</p>
+                <p>Password</p>
                 <input
                   type="password"
                   required
@@ -60,14 +68,16 @@ class SignInForm extends React.Component {
                   onChange={this.handleChanges}
                   value={this.input}
                 />
-                <button type="submit">Log In</button>
-                <p>
-                  Not a member? Sign up <Link to="/sign-up">here</Link>
+                <button className="login-btn" type="submit">
+                  Log In
+              </button>
+                <p className="login-small-font">
+                  Not a member? Sign up{" "}
+                  <Link className="login-link" to="/sign-up">
+                    here
+                </Link>
                 </p>
               </form>
-              <div className="image-right">
-                <p>Add image here later</p>
-              </div>
             </>
           )}
       </div>
@@ -80,7 +90,9 @@ const mapStateToProps = state => ({
   success: state.success
 });
 
-export default withRouter(connect(
-  mapStateToProps,
-  { logIn }
-)(SignInForm));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { logIn }
+  )(SignInForm)
+);
