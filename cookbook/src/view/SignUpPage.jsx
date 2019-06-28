@@ -5,7 +5,6 @@ import Navigation from "../components/Navigation";
 const SignUpPage = () => {
   return (
     <>
-      <Navigation />
       <SignUpForm />
     </>
   );

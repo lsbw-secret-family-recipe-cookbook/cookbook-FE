@@ -5,7 +5,6 @@ import Navigation from "../components/Navigation";
 const LoginPage = () => {
     return (
         <>
-            <Navigation />
             <SignInForm />
         </>
     )
