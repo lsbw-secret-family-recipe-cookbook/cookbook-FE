@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { getRecipe, updateRecipe } from "../actions";
 import { withRouter } from "react-router-dom";
 import ShowArrayItem from "./ShowArrayItem";
-import {axiosWithAuth} from "../util/axiosWithAuth";
+import { axiosWithAuth } from "../util/axiosWithAuth";
 
 class RecipeUpdateForm extends React.Component {
   state = {
@@ -34,29 +34,28 @@ class RecipeUpdateForm extends React.Component {
   };
 
   componentDidMount() {
-    console.log("that", this.props)
+    console.log("that", this.props);
     if (!this.props.recipe) {
-
-        axiosWithAuth()
-          .get(`/recipes/${this.props.match.params.id}`)
-          .then(res => {
-            console.log(res.data)
-          //   this.setState({
-          //     title: this.props.recipe.title,
-          //     source: this.props.recipe.source,
-          //     ingredients: this.props.recipe.ingredients,
-          //     directions: this.props.recipe.instructions,
-          //     tags: this.props.recipe.tags,
-          //     note:"",
-          //     fullNote: this.props.recipe.notes.split("||"),
-          //     ingredientValue: "",
-          //     directionValue: "",
-          //     tag: ""
-          // })
-          .catch(err => {
-           
+      axiosWithAuth()
+        .get(`/recipes/${this.props.match.params.id}`)
+        .then(res => {
+          console.log(res.data);
+          this.setState({
+            title: res.data.recipe.title,
+            source: res.data.recipe.source,
+            ingredients: res.data.recipe.ingredients,
+            directions: res.data.recipe.instructions,
+            tags: res.data.recipe.tags,
+            note: "",
+            fullNote: res.data.recipe.notes.split("||"),
+            ingredientValue: "",
+            directionValue: "",
+            tag: ""
           });
-      })
+        })
+        .catch(err => {
+          console.log(err);
+        });
     } else {
       this.setState({
         title: this.props.recipe.title,
@@ -64,7 +63,7 @@ class RecipeUpdateForm extends React.Component {
         ingredients: this.props.recipe.ingredients,
         directions: this.props.recipe.instructions,
         tags: this.props.recipe.tags,
-        note:"",
+        note: "",
         fullNote: this.props.recipe.notes.split("||"),
         ingredientValue: "",
         directionValue: "",
@@ -75,7 +74,7 @@ class RecipeUpdateForm extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.recipe !== this.props.recipe && this.props.success) {
-      console.log("This", prevProps.recipe)
+      console.log("This", prevProps.recipe);
       this.setState({
         title: this.props.recipe.title,
         source: this.props.recipe.source,
@@ -197,7 +196,7 @@ class RecipeUpdateForm extends React.Component {
       notes: fullNoteString
     };
     this.props.updateRecipe(this.props.match.params.id, updatedRecipe);
-    console.log("updatedRecipe", updatedRecipe)
+    console.log("updatedRecipe", updatedRecipe);
   };
 
   render() {
@@ -214,7 +213,7 @@ class RecipeUpdateForm extends React.Component {
             onChange={this.handleChanges}
             value={this.state.title}
           />
-           <input
+          <input
             placeholder={this.state.source}
             type="text"
             name="source"
@@ -307,14 +306,16 @@ class RecipeUpdateForm extends React.Component {
             value={this.state.note}
           />
           <button onClick={this.addNote}>Add Note</button>
-          {this.state.fullNote.map((note, index)=> (
+          {this.state.fullNote.map((note, index) => (
             <div className="note">
-            <p>{note}</p>
-            <button onClick={e=> this.deleteNote(e,index)}>Delete Note</button>
+              <p>{note}</p>
+              <button onClick={e => this.deleteNote(e, index)}>
+                Delete Note
+              </button>
             </div>
           ))}
 
-          <button type="submit">Submit Recipe</button> 
+          <button type="submit">Submit Recipe</button>
         </form>
       </div>
     );
