@@ -9,7 +9,6 @@ import "../less/SignInForm.less";
 class SignInForm extends React.Component {
   state = {
     credentials: {
-      history: this.props.history,
       username: "",
       password: ""
     }
@@ -26,7 +25,7 @@ class SignInForm extends React.Component {
 
   logIn = e => {
     e.preventDefault();
-    this.props.logIn(this.state.credentials);
+    this.props.logIn(this.state.credentials, this.props.history)
     this.setState({
       credentials: {
         username: "",
@@ -44,43 +43,43 @@ class SignInForm extends React.Component {
         {this.props.loggingIn ? (
           <h2>Loading</h2>
         ) : (
-          <>
-            <form className="login-form" onSubmit={this.logIn}>
-              <div className="login-form-header">
-                <div className="login-logo-wrapper">
-                  <img src={logo} alt="logo" className="login-logo" />
+            <>
+              <form className="login-form" onSubmit={this.logIn}>
+                <div className="login-form-header">
+                  <div className="login-logo-wrapper">
+                    <img src={logo} alt="logo" className="login-logo" />
+                  </div>
+                  <h3>Log in to</h3>
+                  <h2> Secret Cookbook</h2>
                 </div>
-                <h3>Log in to</h3>
-                <h2> Secret Cookbook</h2>
-              </div>
-              <p>Username</p>
-              <input
-                type="text"
-                required
-                name="username"
-                onChange={this.handleChanges}
-                value={this.input}
-              />
-              <p>Password</p>
-              <input
-                type="password"
-                required
-                name="password"
-                onChange={this.handleChanges}
-                value={this.input}
-              />
-              <button className="login-btn" type="submit">
-                Log In
+                <p>Username</p>
+                <input
+                  type="text"
+                  required
+                  name="username"
+                  onChange={this.handleChanges}
+                  value={this.input}
+                />
+                <p>Password</p>
+                <input
+                  type="password"
+                  required
+                  name="password"
+                  onChange={this.handleChanges}
+                  value={this.input}
+                />
+                <button className="login-btn" type="submit">
+                  Log In
               </button>
-              <p className="login-small-font">
-                Not a member? Sign up{" "}
-                <Link className="login-link" to="/sign-up">
-                  here
+                <p className="login-small-font">
+                  Not a member? Sign up{" "}
+                  <Link className="login-link" to="/sign-up">
+                    here
                 </Link>
-              </p>
-            </form>
-          </>
-        )}
+                </p>
+              </form>
+            </>
+          )}
       </div>
     );
   }

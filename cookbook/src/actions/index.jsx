@@ -5,7 +5,7 @@ export const SIGN_UP_START = "SIGN_UP_START";
 export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
 export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
 
-export const signUp = credentials => dispatch => {
+export const signUp = (credentials, history) => dispatch => {
   const creds = { username: credentials.username, password: credentials.password }
   dispatch({ type: SIGN_UP_START });
   axios
@@ -15,7 +15,12 @@ export const signUp = credentials => dispatch => {
     )
     .then(res => {
       dispatch({ type: SIGN_UP_SUCCESS });
-      credentials.history.push('/log-in');
+      if (res.data.token) {
+        localStorage.setItem("token", res.data.token);
+        history.push('/');
+      } else {
+        credentials.history.push('/log-in');
+      }
       return true;
     })
     .catch(err => {
@@ -28,7 +33,7 @@ export const LOG_IN_START = "LOG_IN_START";
 export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS";
 export const LOG_IN_FAILURE = "LOG_IN_FAILURE";
 
-export const logIn = credentials => dispatch => {
+export const logIn = (credentials, history) => dispatch => {
   dispatch({ type: LOG_IN_START });
   axios
     .post(
@@ -38,7 +43,7 @@ export const logIn = credentials => dispatch => {
     .then(res => {
       dispatch({ type: LOG_IN_SUCCESS });
       localStorage.setItem("token", res.data.token);
-      credentials.history.push('/');
+      history.push('/');
       return true;
     })
     .catch(err => {
@@ -67,12 +72,14 @@ export const ADD_RECIPE_START = "ADD_RECIPE_START";
 export const ADD_RECIPE_SUCCESS = "ADD_RECIPE_SUCCESS";
 export const ADD_RECIPE_FAILURE = "ADD_RECIPE_FAILURE";
 
-export const addRecipe = newRecipe => dispatch => {
+export const addRecipe = (newRecipe, history) => dispatch => {
   dispatch({ type: ADD_RECIPE_START });
   axiosWithAuth()
     .post("/recipes", newRecipe)
     .then(res => {
       dispatch({ type: ADD_RECIPE_SUCCESS, payload: res.data });
+      const recipe_id = res.data[res.data.length - 1].id
+      history.push(`/recipes/view/${recipe_id}`)
     })
     .catch(err => {
       dispatch({ type: ADD_RECIPE_FAILURE, payload: err });
