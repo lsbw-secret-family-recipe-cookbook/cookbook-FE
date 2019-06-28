@@ -192,7 +192,6 @@ class RecipeUpdateForm extends React.Component {
       tags: this.state.tags,
       notes: fullNoteString
     };
-    console.log('HISTORY', this.props.history);
     this.props.updateRecipe(this.props.match.params.id, updatedRecipe, this.props.history);
   };
 
