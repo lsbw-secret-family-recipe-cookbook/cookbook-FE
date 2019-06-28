@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import { getTitles } from "../actions";
-import RecipeCards from "./RecipeCards";
+import RecipeSidebar from "./RecipeSidebar";
 
 class TagSearch extends React.Component {
   state = {
@@ -59,7 +59,7 @@ class TagSearch extends React.Component {
             {tag}
           </button>
         ))}
-        <RecipeCards recipes={this.state.currentRecipes} />
+        <RecipeSidebar recipes={this.state.currentRecipes} />
       </div>
     );
   }
