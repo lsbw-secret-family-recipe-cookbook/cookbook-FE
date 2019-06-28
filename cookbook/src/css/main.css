@@ -206,3 +206,79 @@ html {
 .signup-link {
   color: #136B72;
 }
+.login-form-wrapper {
+  margin: 10vh auto;
+  width: 80vw;
+  height: 70vh;
+  background-image: url(../assets/brooke-lark-230140-unsplash.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  color: #444;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 0, 0, 0.4);
+}
+.login-form {
+  position: absolute;
+  right: 5vw;
+  top: 10%;
+  width: 35vw;
+}
+.login-form input {
+  width: 94%;
+  color: darkslategray;
+  padding: 0.5em;
+  border-radius: 5px;
+  border: 2px solid #D8E4DA;
+}
+.login-form input:focus {
+  outline: none;
+}
+.login-form p {
+  margin: 0.9em 0 0.1em;
+}
+.login-form .login-small-font {
+  font-size: 0.85em;
+  text-align: right;
+  margin: 5px;
+}
+.login-form-header {
+  text-align: center;
+}
+.login-form-header h2 {
+  font-size: 1.5em;
+  color: #136B72;
+  margin-top: 0.5em;
+}
+.login-form-header h3 {
+  font-size: 1.2em;
+  margin-top: 0.5em;
+}
+.login-logo {
+  display: block;
+  height: 100px;
+  width: 100px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-bottom: 5px;
+}
+.login-btn {
+  font-size: 1em;
+  padding: 0.5em;
+  border-radius: 5px;
+  background-color: #1a949e;
+  color: #D8E4DA;
+  text-align: center;
+  width: 100%;
+  height: auto;
+  border: 0;
+  box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.3);
+  cursor: pointer;
+  margin: 1.5em auto 3px;
+}
+.login-btn:hover {
+  background-color: #136B72;
+}
+.login-link {
+  color: #136B72;
+}
