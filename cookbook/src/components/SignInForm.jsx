@@ -7,7 +7,6 @@ import { withRouter } from "react-router";
 class SignInForm extends React.Component {
   state = {
     credentials: {
-      history: this.props.history,
       username: "",
       password: ""
     }
@@ -24,7 +23,7 @@ class SignInForm extends React.Component {
 
   logIn = e => {
     e.preventDefault();
-    this.props.logIn(this.state.credentials)
+    this.props.logIn(this.state.credentials, this.props.history)
     this.setState({
       credentials: {
         username: "",
