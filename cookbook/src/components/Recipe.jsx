@@ -18,7 +18,7 @@ class Recipe extends React.Component {
 
   deleteRecipe = (e, ID) => {
     e.preventDefault();
-    this.props.deleteRecipe(ID);
+    this.props.deleteRecipe(ID, this.props.history);
   };
 
   render() {
@@ -55,8 +55,9 @@ class Recipe extends React.Component {
         <p>{this.props.recipe.notes}</p>
         <Link
           to={{
-            pathname:`/recipes/edit/${this.props.recipeID}`,
-            recipeID:this.props.recipeID}}
+            pathname: `/recipes/edit/${this.props.recipeID}`,
+            recipeID: this.props.recipeID
+          }}
           key={this.props.recipeID}
         >
           Edit Recipe
