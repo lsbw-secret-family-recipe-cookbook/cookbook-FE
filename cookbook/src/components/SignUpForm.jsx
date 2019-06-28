@@ -40,10 +40,11 @@ class SignUpForm extends React.Component {
 
   render() {
     return (
-      <div className="signup-form-wrapper">
-        {this.props.signingUp ? (
-          <h2>Loading</h2>
-        ) : (
+      <div className="signup-page-wrapper">
+        <div className="signup-form-wrapper">
+          {this.props.signingUp ? (
+            <h2>Loading</h2>
+          ) : (
             <>
               <form className="signup-form" onSubmit={this.signUp}>
                 <div className="signup-form-header">
@@ -80,15 +81,22 @@ class SignUpForm extends React.Component {
                 {!this.state.passwordMatch ? (
                   <p>Oops! Your passwords don't match</p>
                 ) : (
-                    ""
-                  )}<br />
-                <button className="signup-btn" type="submit">Sign Up</button>
+                  ""
+                )}
+                <br />
+                <button className="signup-btn" type="submit">
+                  Sign Up
+                </button>
                 <p className="signup-small-font">
-                  Already a member? Sign in <Link to="/log-in" className="signup-link">here</Link>
+                  Already a member? Sign in{" "}
+                  <Link to="/log-in" className="signup-link">
+                    here
+                  </Link>
                 </p>
               </form>
             </>
           )}
+        </div>
       </div>
     );
   }
