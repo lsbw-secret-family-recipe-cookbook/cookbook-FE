@@ -2,8 +2,8 @@ import React from "react";
 import { Link, withRouter} from "react-router-dom";
 import { connect } from "react-redux";
 import {signUp} from "../actions";
-import "./SignUpForm.css"
-
+import logo from "../assets/secret-cookbook.logo.png";
+import "../less/SignUpForm.less";
 
 class SignUpForm extends React.Component {
   state = {
@@ -46,8 +46,10 @@ class SignUpForm extends React.Component {
           <h2>Loading</h2>
         ) : (
           <>
-            <form onSubmit={this.signUp}>
-              <h2>Welcome to your Secret Recipe Cookbook</h2>
+            <form className="sign-up-form" onSubmit={this.signUp}>
+              <h2>Welcome to</h2>
+              <img source={logo} alt="logo"/>
+              <h2>Secret Cookbook</h2>
 
               <p>Username:</p>
               <input
