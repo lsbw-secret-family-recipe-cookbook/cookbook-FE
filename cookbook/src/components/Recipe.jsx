@@ -69,7 +69,7 @@ class Recipe extends React.Component {
         </Link>
 
         <button onClick={e => this.deleteRecipe(e, this.props.recipeID)}>
-          Delete Recipe
+          <i class="far fa-trash-alt"></i>
         </button>
       </div>
     );

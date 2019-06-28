@@ -55,11 +55,11 @@ class TagSearch extends React.Component {
     return (
       <div className="search-wrapper">
         {this.props.uniqueTags.map((tag, index) => (
-          <button onClick={e => this.searchRecipes(e, tag)} key={`t${index}`}>
+          <button className="tag-button" onClick={e => this.searchRecipes(e, tag)} key={`t${index}`}>
             {tag}
           </button>
         ))}
-        <RecipeSidebar recipes={this.state.currentRecipes} />
+        {/* <RecipeSidebar recipes={this.state.currentRecipes} /> */}
       </div>
     );
   }
