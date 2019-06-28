@@ -4,6 +4,7 @@ import { getRecipe, updateRecipe } from "../actions";
 import { withRouter } from "react-router-dom";
 import ShowArrayItem from "./ShowArrayItem";
 import { axiosWithAuth } from "../util/axiosWithAuth";
+import '../less/RecipeUpdateForm.less';
 
 class RecipeUpdateForm extends React.Component {
   state = {
@@ -227,6 +228,7 @@ class RecipeUpdateForm extends React.Component {
             />
             <button onClick={this.addIngredient}>Add Ingredient</button>
 
+            <div className="ingredients-list">
             {this.state.ingredients.map((ingredient, index) => (
               <div className="ingredient">
                 <ShowArrayItem
@@ -235,10 +237,11 @@ class RecipeUpdateForm extends React.Component {
                   key={index}
                 />
                 <button onClick={e => this.deleteIngredient(e, index)}>
-                  Delete Ingredient
+                  <i class="far fa-trash-alt"></i>
                 </button>
               </div>
             ))}
+            </div>
           </div>
           <div className="directions-wrapper">
             <h3>Directions</h3>
@@ -258,7 +261,7 @@ class RecipeUpdateForm extends React.Component {
                   key={index}
                 />
                 <button onClick={e => this.deleteDirection(e, index)}>
-                  Delete Direction
+                  <i class="far fa-trash-alt"></i>
                 </button>
               </div>
             ))}
@@ -287,7 +290,7 @@ class RecipeUpdateForm extends React.Component {
                 <div className="tag">
                   <p>{tag}</p>
                   <button onClick={e => this.deleteTag(e, index)}>
-                    Delete Tag
+                  <i class="far fa-trash-alt"></i>
                   </button>
                 </div>
               ))}
@@ -305,7 +308,7 @@ class RecipeUpdateForm extends React.Component {
             <div className="note">
               <p>{note}</p>
               <button onClick={e => this.deleteNote(e, index)}>
-                Delete Note
+              <i class="far fa-trash-alt"></i>
               </button>
             </div>
           ))}
