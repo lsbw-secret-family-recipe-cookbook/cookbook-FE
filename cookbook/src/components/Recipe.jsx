@@ -10,7 +10,6 @@ class Recipe extends React.Component {
   componentDidMount() {
     this.props.getRecipe(this.props.recipeID);
   }
-  
   componentDidUpdate(prevProps) {
     localStorage.setItem(
       this.props.recipeID,
