@@ -309,6 +309,7 @@ html {
   margin: 1em;
   padding: 0.5em;
   color: #444;
+  background-color: #FDFDFD;
 }
 .recipe-card h3 {
   font-weight: bolder;
