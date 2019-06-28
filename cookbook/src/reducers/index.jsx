@@ -34,7 +34,7 @@ const initialState = {
   deletingRecipe: false,
   fetchingTitles: false,
   uniqueTags: ["all"],
-  currentRecipes:[],
+  currentRecipes: [],
   success: false
 };
 
@@ -44,7 +44,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: null,
-        signingUp: true,  
+        signingUp: true,
         success: false
 
       };
@@ -53,7 +53,7 @@ const reducer = (state = initialState, action) => {
         ...state,
         error: null,
         signingUp: false,
-          success: true
+        success: true
       };
     case SIGN_UP_FAILURE:
       return {
@@ -181,8 +181,8 @@ const reducer = (state = initialState, action) => {
       };
     case FETCH_TITLES_SUCCESS:
       const tempUniqueTags = ["all"];
-      action.payload.recipes.map(title => {
-        title.tags.map(tag => {
+      action.payload.recipes.foreach(title => {
+        title.tags.foreach(tag => {
           if (!tempUniqueTags.includes(tag)) {
             tempUniqueTags.push(tag);
           }

@@ -33,7 +33,7 @@ class TagSearch extends React.Component {
       });
     } else {
       const filteredRecipes = [];
-      this.props.titles.map(recipe => {
+      this.props.titles.foreach(recipe => {
         if (recipe.tags.includes(selectedTag)) {
           filteredRecipes.push(recipe);
         }
