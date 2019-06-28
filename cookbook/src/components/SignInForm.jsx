@@ -7,10 +7,12 @@ import { withRouter } from "react-router";
 class SignInForm extends React.Component {
   state = {
     credentials: {
+      history: this.props.history,
       username: "",
       password: ""
     }
   };
+
   handleChanges = e => {
     this.setState({
       credentials: {
@@ -40,36 +42,35 @@ class SignInForm extends React.Component {
         {this.props.loggingIn ? (
           <h2>Loading</h2>
         ) : (
-          <>
-            <form onSubmit={this.logIn}>
-              <h2>Sign in to your Secret Recipe Cookbook</h2>
-              <p>Username</p>
-              <input
-                type="text"
-                required
-                name="username"
-                onChange={this.handleChanges}
-                value={this.input}
-              />
-              <p>Password:</p>
-              <input
-                type="password"
-                required
-                name="password"
-                onChange={this.handleChanges}
-                value={this.input}
-              />
-              <button type="submit">Log In</button>
-              <p>
-                Not a member? Sign up <Link to="/sign-up">here</Link>
-              </p>
-            </form>
-            <div className="image-right">
-              <p>Add image here later</p>
-            </div>
-          </>
-        )}
-        {/* {this.props.success?  <link to="/"><button>Go To Home page</button></link> : } */}
+            <>
+              <form onSubmit={this.logIn}>
+                <h2>Sign in to your Secret Recipe Cookbook</h2>
+                <p>Username</p>
+                <input
+                  type="text"
+                  required
+                  name="username"
+                  onChange={this.handleChanges}
+                  value={this.input}
+                />
+                <p>Password:</p>
+                <input
+                  type="password"
+                  required
+                  name="password"
+                  onChange={this.handleChanges}
+                  value={this.input}
+                />
+                <button type="submit">Log In</button>
+                <p>
+                  Not a member? Sign up <Link to="/sign-up">here</Link>
+                </p>
+              </form>
+              <div className="image-right">
+                <p>Add image here later</p>
+              </div>
+            </>
+          )}
       </div>
     );
   }

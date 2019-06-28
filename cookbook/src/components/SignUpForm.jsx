@@ -44,51 +44,51 @@ class SignUpForm extends React.Component {
         {this.props.signingUp ? (
           <h2>Loading</h2>
         ) : (
-          <>
-            <form className="signup-form" onSubmit={this.signUp}>
-              <div className="signup-form-header">
-              <div className="signup-logo-wrapper">
-              <img src={logo} alt="logo" className="signup-logo"/>
-              </div>
-              <h3>Welcome to</h3>
-              <h2>Secret Cookbook</h2>
-              </div>
-              <p>Username</p>
-              <input
-                type="text"
-                required
-                name="username"
-                onChange={this.handleChanges}
-                value={this.input}
-              />
-              <p>Create password</p>
-              <input
-                type="password"
-                required
-                name="password1"
-                onChange={this.handleChanges}
-                value={this.input}
-              />
-              <p>Confirm password</p>
-              <input
-                type="password"
-                required
-                name="password2"
-                onChange={this.handleChanges}
-                value={this.input}
-              />
-              {!this.state.passwordMatch ? (
-                <p>Oops! Your passwords don't match</p>
-              ) : (
-                ""
-              )}<br/>
-              <button className="signup-btn" type="submit">Sign Up</button>
-              <p className="signup-small-font">
-                Already a member? Sign in <Link to="/log-in" className="signup-link">here</Link>
-              </p>
-            </form>
-          </>
-        )}
+            <>
+              <form className="signup-form" onSubmit={this.signUp}>
+                <div className="signup-form-header">
+                  <div className="signup-logo-wrapper">
+                    <img src={logo} alt="logo" className="signup-logo" />
+                  </div>
+                  <h3>Welcome to</h3>
+                  <h2>Secret Cookbook</h2>
+                </div>
+                <p>Username</p>
+                <input
+                  type="text"
+                  required
+                  name="username"
+                  onChange={this.handleChanges}
+                  value={this.input}
+                />
+                <p>Create password</p>
+                <input
+                  type="password"
+                  required
+                  name="password1"
+                  onChange={this.handleChanges}
+                  value={this.input}
+                />
+                <p>Confirm password</p>
+                <input
+                  type="password"
+                  required
+                  name="password2"
+                  onChange={this.handleChanges}
+                  value={this.input}
+                />
+                {!this.state.passwordMatch ? (
+                  <p>Oops! Your passwords don't match</p>
+                ) : (
+                    ""
+                  )}<br />
+                <button className="signup-btn" type="submit">Sign Up</button>
+                <p className="signup-small-font">
+                  Already a member? Sign in <Link to="/log-in" className="signup-link">here</Link>
+                </p>
+              </form>
+            </>
+          )}
       </div>
     );
   }
