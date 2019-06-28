@@ -128,15 +128,20 @@ table {
 }
 .tag {
   border: 1px solid black;
-  padding: 0.1em;
+  padding: 0.2em 0.1em;
   margin: 0.2em;
+  min-width: 50px;
+  text-align: center;
   width: auto;
 }
 html {
   font-family: 'Lora', serif;
 }
-html {
+.signup-page-wrapper {
+  width: 80vw;
+  height: 80vh;
   background-color: #136B72;
+  padding: 5vw 10vw 10vw;
 }
 .signup-form-wrapper {
   margin: 10vh auto;
@@ -208,6 +213,12 @@ html {
 }
 .signup-link {
   color: #136B72;
+}
+.login-page-wrapper {
+  width: 80vw;
+  height: 80vh;
+  background-color: #136B72;
+  padding: 5vw 10vw 10vw;
 }
 .login-form-wrapper {
   margin: 10vh auto;
@@ -295,9 +306,14 @@ html {
   width: 200px;
   background-color: #D8E4DA;
   margin: 1em;
-  padding: 1em;
+  padding: 0.5em;
   color: #444;
 }
 .recipe-card h3 {
   font-weight: bolder;
+  margin-bottom: 0.5em;
+}
+.recipe-card .recipe-card-tags {
+  display: flex;
+  flex-wrap: wrap;
 }
