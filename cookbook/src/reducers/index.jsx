@@ -114,7 +114,6 @@ const reducer = (state = initialState, action) => {
         success: false
       };
     case ADD_RECIPE_SUCCESS:
-      console.log('RECIPE SUCCESS: ', action.payload);
       return {
         ...state,
         error: null,

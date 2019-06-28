@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import { addRecipe } from "../actions";
 import ShowArrayItem from "./ShowArrayItem";
@@ -72,9 +73,9 @@ class RecipeForm extends React.Component {
       };
     });
   };
-  addCustomTag = (e)=> {
+  addCustomTag = (e) => {
     e.preventDefault();
-    const newTags=[...this.state.tags]
+    const newTags = [...this.state.tags]
     newTags.push(this.state.tag)
     this.setState({
       tags: newTags,
@@ -83,7 +84,7 @@ class RecipeForm extends React.Component {
   }
   addNote = e => {
     e.preventDefault();
-    const newNote= this.state.fullNote
+    const newNote = this.state.fullNote
     newNote.push(this.state.note)
     this.setState({
       fullNote: newNote,
@@ -116,10 +117,10 @@ class RecipeForm extends React.Component {
     });
   };
 
-  deleteNote = (e,index) => {
+  deleteNote = (e, index) => {
     e.preventDefault();
     const newNote = [...this.state.fullNote]
-    newNote.splice(index,1)
+    newNote.splice(index, 1)
     this.setState({
       fullNote: newNote
     })
@@ -127,7 +128,7 @@ class RecipeForm extends React.Component {
 
   submitRecipe = e => {
     e.preventDefault();
-    const fullNoteString= this.state.fullNote.join("||")
+    const fullNoteString = this.state.fullNote.join("||")
     const newRecipe = {
       title: this.state.title,
       source: this.state.source,
@@ -136,7 +137,8 @@ class RecipeForm extends React.Component {
       tags: this.state.tags,
       notes: fullNoteString
     };
-    this.props.addRecipe(newRecipe);
+    console.log('submit recipe history', this.props.history);
+    this.props.addRecipe(newRecipe, this.props.history);
   };
 
   render() {
@@ -245,10 +247,10 @@ class RecipeForm extends React.Component {
             value={this.state.note}
           />
           <button onClick={this.addNote}>Add Note</button>
-          {this.state.fullNote.map((note, index)=> (
+          {this.state.fullNote.map((note, index) => (
             <div className="note">
-            <p>{note}</p>
-            <button onClick={e=> this.deleteNote(e,index)}>Delete Note</button>
+              <p>{note}</p>
+              <button onClick={e => this.deleteNote(e, index)}>Delete Note</button>
             </div>
           ))}
 
@@ -263,7 +265,9 @@ const mapStateToProps = state => ({
   addingRecipe: state.addingRecipe
 });
 
-export default connect(
-  mapStateToProps,
-  { addRecipe }
-)(RecipeForm);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { addRecipe }
+  )(RecipeForm)
+);
