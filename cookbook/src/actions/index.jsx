@@ -6,17 +6,16 @@ export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
 export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
 
 export const signUp = credentials => dispatch => {
+  const creds = { username: credentials.username, password: credentials.password }
   dispatch({ type: SIGN_UP_START });
   axios
     .post(
       "https://lambdaschool-cookbook2.herokuapp.com/auth/register",
-      credentials
+      creds
     )
     .then(res => {
       dispatch({ type: SIGN_UP_SUCCESS });
-      if (res.data.token) {
-        localStorage.setItem("token", res.data.token);
-      }
+      credentials.history.push('/log-in');
       return true;
     })
     .catch(err => {
