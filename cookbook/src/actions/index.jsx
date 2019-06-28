@@ -14,7 +14,9 @@ export const signUp = credentials => dispatch => {
     )
     .then(res => {
       dispatch({ type: SIGN_UP_SUCCESS });
-      localStorage.setItem("token", res.data.token);
+      if (res.data.token) {
+        localStorage.setItem("token", res.data.token);
+      }
       return true;
     })
     .catch(err => {
@@ -37,6 +39,7 @@ export const logIn = credentials => dispatch => {
     .then(res => {
       dispatch({ type: LOG_IN_SUCCESS });
       localStorage.setItem("token", res.data.token);
+      credentials.history.push('/');
       return true;
     })
     .catch(err => {

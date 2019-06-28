@@ -3,10 +3,10 @@ import SignInForm from "../components/SignInForm";
 import Navigation from "../components/Navigation";
 
 const LoginPage = () => {
-    return(
+    return (
         <>
-        <Navigation/>
-        <SignInForm/>
+            <Navigation />
+            <SignInForm />
         </>
     )
 }
