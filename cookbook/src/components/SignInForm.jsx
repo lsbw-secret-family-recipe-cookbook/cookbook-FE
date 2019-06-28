@@ -24,7 +24,7 @@ class SignInForm extends React.Component {
 
   logIn = e => {
     e.preventDefault();
-    this.props.logIn(this.state.credentials);
+    this.props.logIn(this.state.credentials)
     this.setState({
       credentials: {
         username: "",
