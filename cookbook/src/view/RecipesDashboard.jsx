@@ -7,7 +7,9 @@ const RecipesDashboard = () => {
   return (
     <div className="dashboard=wrapper">
       <Navigation />
+    {console.log("RecipeSidebar")}
       <TagSearch />
+{console.log("after")}
     </div>
   );
 };

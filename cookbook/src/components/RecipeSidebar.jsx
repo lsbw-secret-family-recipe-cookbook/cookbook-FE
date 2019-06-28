@@ -5,33 +5,36 @@ import { getTitles } from "../actions";
 import "../less/RecipeCards.less";
 
 class RecipeSideBar extends React.Component {
+  componentDidMount() {
+    // this.props.getTitles();
+    console.log("props", this.props);
+  }
 
   render() {
     return (
-      <div>
+      <div className="recipe-cards-wrapper">
         {this.props.fetchingTitles ? (
           <p>Loading...</p>
         ) : (
-            <div>
-              <p>Recipe Sidebar</p>
-              {this.props.recipes &&
-                this.props.recipes.map(title => {
-                  return (
+          <>
+            {this.props.recipes &&
+              this.props.recipes.map(title => {
+                return (
+                  <div className="recipe-card">
                     <Link to={`/recipes/view/${title.id}`} key={title.id}>
-                      <div className="recipe-card">
-                        <h3>{title.title}</h3>
-                        <p>Source: {title.source}</p>
-                        <div className="recipe-card-tags">
-                          {title.tags.map(tag => (
-                            <p className="tag">{tag} </p>
-                          ))}
-                        </div>
+                      <h3>{title.title}</h3>
+                      <p>Source: {title.source}</p>
+                      <div className="recipe-card-tags">
+                        {title.tags.map(tag => (
+                          <p className="tag">{tag} </p>
+                        ))}
                       </div>
                     </Link>
-                  );
-                })}
-            </div>
-          )}
+                  </div>
+                );
+              })}
+          </>
+        )}
       </div>
     );
   }

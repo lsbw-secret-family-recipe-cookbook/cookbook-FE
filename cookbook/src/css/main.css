@@ -299,21 +299,29 @@ html {
 }
 .recipe-cards-wrapper {
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
-  width: 80vw;
   justify-content: space-evenly;
+  width: 800px;
+  overflow: hidden;
 }
 .recipe-card {
   width: 200px;
-  background-color: #D8E4DA;
   margin: 1em;
   padding: 0.5em;
   color: #444;
-  background-color: #FDFDFD;
+  background: linear-gradient(white, lightgray);
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  text-decoration: none;
 }
 .recipe-card h3 {
   font-weight: bolder;
   margin-bottom: 0.5em;
+  text-decoration: none;
+}
+.recipe-card p {
+  text-decoration: none;
 }
 .recipe-card .recipe-card-tags {
   display: flex;
