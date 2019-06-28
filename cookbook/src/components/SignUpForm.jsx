@@ -1,14 +1,14 @@
 import React from "react";
-import { Link, withRouter} from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 import { connect } from "react-redux";
-import {signUp} from "../actions";
-import logo from "../assets/secret-cookbook.logo.png";
+import { signUp } from "../actions";
+import logo from "../assets/secret-cookbook-logo.png";
 import "../less/SignUpForm.less";
 
 class SignUpForm extends React.Component {
   state = {
-      username: "",
-      password1: "",
+    username: "",
+    password1: "",
     password2: "",
     passwordMatch: true
   };
@@ -23,15 +23,15 @@ class SignUpForm extends React.Component {
   signUp = e => {
     e.preventDefault();
     if (this.state.password1 === this.state.password2) {
-      const newUser= {
+      const newUser = {
         username: this.state.username,
-        password: this.state.password1,
-      }
+        password: this.state.password1
+      };
       this.props.signUp(newUser);
       this.setState({
-          username: "",
-          password1: "",
-          password2: ""
+        username: "",
+        password1: "",
+        password2: ""
       });
     } else {
       this.setState({ ...this.state, passwordMatch: false });
@@ -41,17 +41,19 @@ class SignUpForm extends React.Component {
   render() {
     return (
       <div className="signup-form-wrapper">
-
         {this.props.signingUp ? (
           <h2>Loading</h2>
         ) : (
           <>
-            <form className="sign-up-form" onSubmit={this.signUp}>
-              <h2>Welcome to</h2>
-              <img source={logo} alt="logo"/>
+            <form className="signup-form" onSubmit={this.signUp}>
+              <div className="signup-form-header">
+              <div className="signup-logo-wrapper">
+              <img src={logo} alt="logo" className="signup-logo"/>
+              </div>
+              <h3>Welcome to</h3>
               <h2>Secret Cookbook</h2>
-
-              <p>Username:</p>
+              </div>
+              <p>Username</p>
               <input
                 type="text"
                 required
@@ -59,7 +61,7 @@ class SignUpForm extends React.Component {
                 onChange={this.handleChanges}
                 value={this.input}
               />
-              <p>Create password:</p>
+              <p>Create password</p>
               <input
                 type="password"
                 required
@@ -67,7 +69,7 @@ class SignUpForm extends React.Component {
                 onChange={this.handleChanges}
                 value={this.input}
               />
-              <p>Confirm password:</p>
+              <p>Confirm password</p>
               <input
                 type="password"
                 required
@@ -79,10 +81,10 @@ class SignUpForm extends React.Component {
                 <p>Oops! Your passwords don't match</p>
               ) : (
                 ""
-              )}
-              <button type="submit">Sign Up</button>
-              <p>
-                Already a member? Sign in <Link to="/log-in">here</Link>
+              )}<br/>
+              <button className="signup-btn" type="submit">Sign Up</button>
+              <p className="signup-small-font">
+                Already a member? Sign in <Link to="/log-in" className="signup-link">here</Link>
               </p>
             </form>
           </>
@@ -96,7 +98,9 @@ const mapStateToProps = state => ({
   signingUp: state.signingUp
 });
 
-export default withRouter(connect(
-  mapStateToProps,
-  { signUp }
-)(SignUpForm));
+export default withRouter(
+  connect(
+    mapStateToProps,
+    { signUp }
+  )(SignUpForm)
+);
