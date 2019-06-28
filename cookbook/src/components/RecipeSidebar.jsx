@@ -15,27 +15,26 @@ class RecipeSideBar extends React.Component {
         {this.props.fetchingTitles ? (
           <p>Loading...</p>
         ) : (
-          <div>
-            <p>Recipe Sidebar</p>
-
-            {this.props.titles &&
-              this.props.titles.map(title => {
-                return (
-                  <Link to={`/recipes/view/${title.id}`} key={title.id}>
-                    <div className="recipe-card">
-                      <h3>{title.title}</h3>
-                      <p>Source: {title.source}</p>
-                      <div className="recipe-card-tags">
-                        {title.tags.map(tag => (
-                          <p className="tag">{tag} </p>
-                        ))}
+            <div>
+              <p>Recipe Sidebar</p>
+              {this.props.titles &&
+                this.props.titles.map(title => {
+                  return (
+                    <Link to={`/recipes/view/${title.id}`} key={title.id}>
+                      <div className="recipe-card">
+                        <h3>{title.title}</h3>
+                        <p>Source: {title.source}</p>
+                        <div className="recipe-card-tags">
+                          {title.tags.map(tag => (
+                            <p className="tag">{tag} </p>
+                          ))}
+                        </div>
                       </div>
-                    </div>
-                  </Link>
-                );
-              })}
-          </div>
-        )}
+                    </Link>
+                  );
+                })}
+            </div>
+          )}
       </div>
     );
   }
