@@ -25,7 +25,7 @@ class SignInForm extends React.Component {
 
   logIn = e => {
     e.preventDefault();
-    this.props.logIn(this.state.credentials, this.props.history)
+    this.props.logIn(this.state.credentials, this.props.history);
     this.setState({
       credentials: {
         username: "",
@@ -39,10 +39,11 @@ class SignInForm extends React.Component {
       return <Redirect to="/" />;
     }
     return (
-      <div className="login-form-wrapper">
-        {this.props.loggingIn ? (
-          <h2>Loading</h2>
-        ) : (
+      <div className="login-page-wrapper">
+        <div className="login-form-wrapper">
+          {this.props.loggingIn ? (
+            <h2>Loading</h2>
+          ) : (
             <>
               <form className="login-form" onSubmit={this.logIn}>
                 <div className="login-form-header">
@@ -70,16 +71,17 @@ class SignInForm extends React.Component {
                 />
                 <button className="login-btn" type="submit">
                   Log In
-              </button>
+                </button>
                 <p className="login-small-font">
                   Not a member? Sign up{" "}
                   <Link className="login-link" to="/sign-up">
                     here
-                </Link>
+                  </Link>
                 </p>
               </form>
             </>
           )}
+        </div>
       </div>
     );
   }
