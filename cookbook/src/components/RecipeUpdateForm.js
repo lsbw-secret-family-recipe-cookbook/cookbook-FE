@@ -34,12 +34,10 @@ class RecipeUpdateForm extends React.Component {
   };
 
   componentDidMount() {
-    console.log("that", this.props);
     if (!this.props.recipe) {
       axiosWithAuth()
         .get(`/recipes/${this.props.match.params.id}`)
         .then(res => {
-          console.log(res.data);
           this.setState({
             title: res.data.recipe.title,
             source: res.data.recipe.source,
@@ -74,7 +72,6 @@ class RecipeUpdateForm extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.recipe !== this.props.recipe && this.props.success) {
-      console.log("This", prevProps.recipe);
       this.setState({
         title: this.props.recipe.title,
         source: this.props.recipe.source,
@@ -195,8 +192,8 @@ class RecipeUpdateForm extends React.Component {
       tags: this.state.tags,
       notes: fullNoteString
     };
-    this.props.updateRecipe(this.props.match.params.id, updatedRecipe);
-    console.log("updatedRecipe", updatedRecipe);
+    console.log('HISTORY', this.props.history);
+    this.props.updateRecipe(this.props.match.params.id, updatedRecipe, this.props.history);
   };
 
   render() {
@@ -204,7 +201,6 @@ class RecipeUpdateForm extends React.Component {
       <div className="recipe-form">
         <h2>Edit Recipe</h2>
         <form onSubmit={this.updateRecipe}>
-          {console.log(this.props)}
           <input
             placeholder={this.state.title}
             type="text"
