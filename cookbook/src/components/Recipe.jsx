@@ -6,14 +6,20 @@ import ShowArrayItem from "./ShowArrayItem";
 import { getRecipe, deleteRecipe } from "../actions";
 
 class Recipe extends React.Component {
+
   componentDidMount() {
     this.props.getRecipe(this.props.recipeID);
   }
-  componentDidUpdate() {
+  
+  componentDidUpdate(prevProps) {
     localStorage.setItem(
       this.props.recipeID,
       JSON.stringify(this.props.recipe)
     );
+
+    if (prevProps.recipeID !== this.props.recipeID) {
+      this.props.getRecipe(this.props.recipeID);
+    }
   }
 
   deleteRecipe = (e, ID) => {
