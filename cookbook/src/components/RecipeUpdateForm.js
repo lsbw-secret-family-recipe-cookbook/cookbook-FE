@@ -4,6 +4,8 @@ import { getRecipe, updateRecipe } from "../actions";
 import { withRouter } from "react-router-dom";
 import ShowArrayItem from "./ShowArrayItem";
 import { axiosWithAuth } from "../util/axiosWithAuth";
+import { FaRegTrashAlt, FaRegEdit } from "react-icons/fa";
+import '../less/RecipeUpdateForm.less';
 
 class RecipeUpdateForm extends React.Component {
   state = {
@@ -227,6 +229,7 @@ class RecipeUpdateForm extends React.Component {
             />
             <button onClick={this.addIngredient}>Add Ingredient</button>
 
+            <div className="ingredients-list">
             {this.state.ingredients.map((ingredient, index) => (
               <div className="ingredient">
                 <ShowArrayItem
@@ -234,11 +237,16 @@ class RecipeUpdateForm extends React.Component {
                   item={ingredient}
                   key={index}
                 />
-                <button onClick={e => this.deleteIngredient(e, index)}>
-                  Delete Ingredient
-                </button>
+                {/* <button onClick={e => this.deleteIngredient(e, index)}> */}
+                  <FaRegTrashAlt
+                    size={20}
+                    color="#D8E4DA"
+                    onClick={e => this.deleteIngredient(e, index)}
+                  />
+                {/* </button> */}
               </div>
             ))}
+            </div>
           </div>
           <div className="directions-wrapper">
             <h3>Directions</h3>
@@ -257,9 +265,13 @@ class RecipeUpdateForm extends React.Component {
                   item={direction}
                   key={index}
                 />
-                <button onClick={e => this.deleteDirection(e, index)}>
-                  Delete Direction
-                </button>
+                {/* <button onClick={e => this.deleteDirection(e, index)}> */}
+                  <FaRegTrashAlt
+                    size={20}
+                    color="#D8E4DA"
+                    onClick={e => this.deleteDirection(e, index)}
+                  />
+                {/* </button> */}
               </div>
             ))}
           </div>
@@ -286,9 +298,13 @@ class RecipeUpdateForm extends React.Component {
               {this.state.tags.map((tag, index) => (
                 <div className="tag">
                   <p>{tag}</p>
-                  <button onClick={e => this.deleteTag(e, index)}>
-                    Delete Tag
-                  </button>
+                  {/* <button onClick={e => this.deleteTag(e, index)}> */}
+                  <FaRegTrashAlt
+                    size={20}
+                    color="#D8E4DA"
+                    onClick={e => this.deleteTag(e, index)}
+                  />
+                  {/* </button> */}
                 </div>
               ))}
             </div>
@@ -304,9 +320,13 @@ class RecipeUpdateForm extends React.Component {
           {this.state.fullNote.map((note, index) => (
             <div className="note">
               <p>{note}</p>
-              <button onClick={e => this.deleteNote(e, index)}>
-                Delete Note
-              </button>
+              {/* <button onClick={e => this.deleteNote(e, index)}> */}
+              <FaRegTrashAlt
+                size={20}
+                color="#D8E4DA"
+                onClick={e => this.deleteNote(e, index)}
+              />
+              {/* </button> */}
             </div>
           ))}
 
