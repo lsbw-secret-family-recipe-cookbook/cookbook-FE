@@ -132,6 +132,10 @@ table {
   margin: 0.2em;
   min-width: 50px;
   text-align: center;
+  width: auto;
+}
+html {
+  font-family: 'Lora', serif;
 }
 .signup-page-wrapper {
   width: 80vw;
