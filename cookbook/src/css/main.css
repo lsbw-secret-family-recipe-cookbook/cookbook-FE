@@ -133,6 +133,9 @@ table {
   width: auto;
 }
 html {
+  font-family: 'Lora', serif;
+}
+html {
   background-color: #136B72;
 }
 .signup-form-wrapper {
