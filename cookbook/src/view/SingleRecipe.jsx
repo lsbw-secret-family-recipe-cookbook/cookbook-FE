@@ -8,7 +8,7 @@ const SingleRecipe = props => {
     <div className="full-recipe-wrapper">
       <Navigation />
       <Recipe recipeID={props.match.params.id} />
-      <RecipeSidebar />
+      {/* <RecipeSidebar /> */}
     </div>
   );
 };
