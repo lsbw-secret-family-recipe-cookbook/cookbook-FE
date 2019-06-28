@@ -10,13 +10,14 @@ class TagSearch extends React.Component {
   };
 
   componentDidMount() {
-    getTitles();
+    this.props.getTitles();
     if (this.props.titles) {
       this.setState({
         currentRecipes: this.props.titles
       });
     }
   }
+  
   componentDidUpdate(prevProps) {
     if (prevProps.titles !== this.props.titles) {
       this.setState({

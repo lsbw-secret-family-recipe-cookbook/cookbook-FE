@@ -5,9 +5,6 @@ import { getTitles } from "../actions";
 import "../less/RecipeCards.less";
 
 class RecipeSideBar extends React.Component {
-  componentDidMount() {
-    this.props.getTitles();
-  }
 
   render() {
     return (
@@ -17,8 +14,8 @@ class RecipeSideBar extends React.Component {
         ) : (
             <div>
               <p>Recipe Sidebar</p>
-              {this.props.titles &&
-                this.props.titles.map(title => {
+              {this.props.recipes &&
+                this.props.recipes.map(title => {
                   return (
                     <Link to={`/recipes/view/${title.id}`} key={title.id}>
                       <div className="recipe-card">
