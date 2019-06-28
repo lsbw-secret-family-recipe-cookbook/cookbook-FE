@@ -128,9 +128,9 @@ table {
 }
 .tag {
   border: 1px solid black;
-  padding: 0.3em;
+  padding: 0.1em;
+  margin: 0.2em;
   width: auto;
-  font-weight: bold;
 }
 html {
   background-color: #136B72;
@@ -281,4 +281,20 @@ html {
 }
 .login-link {
   color: #136B72;
+}
+.recipe-cards-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  width: 80vw;
+  justify-content: space-evenly;
+}
+.recipe-card {
+  width: 200px;
+  background-color: #D8E4DA;
+  margin: 1em;
+  padding: 1em;
+  color: #444;
+}
+.recipe-card h3 {
+  font-weight: bolder;
 }

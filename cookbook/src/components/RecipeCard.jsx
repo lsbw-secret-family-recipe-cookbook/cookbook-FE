@@ -4,10 +4,10 @@ const RecipeCard= props => {
     return (
         <div className="recipe-card">
             <h3>{props.recipe.title}</h3>
-            <p>From: {props.recipe.source}</p>
-            <p>Tags:</p>
+            <p>Source: {props.recipe.source}</p>
+            {/* <span>Tags:</span> */}
              {props.recipe.tags.map(tag=>(
-                <span>{tag} </span> 
+                <span className="tag">{tag} </span> 
             ))} 
         </div>
     )
