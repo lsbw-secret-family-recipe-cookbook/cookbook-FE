@@ -143,7 +143,7 @@ class RecipeForm extends React.Component {
 
   render() {
     return (
-      <div className="recipe-form">
+      <div className="recipe-form-wrapper">
         <h2>Create New Recipe</h2>
         <form onSubmit={this.submitRecipe}>
           <input

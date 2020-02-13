@@ -23,16 +23,22 @@ const store = createStore(
   composeEnhancers(applyMiddleware(thunk, logger))
 );
 
+//TODO: change back to private routes
+ 
 ReactDOM.render(
   <Provider store={store}>
     <Router>
       <Switch>
-        <PrivateRoute exact path='/' component={RecipesDashboard} />
+        <Route exact path='/' component={RecipesDashboard} />
+        {/* <PrivateRoute exact path='/' component={RecipesDashboard} /> */}
         <Route path='/log-in' component={LoginPage} />
         <Route path='/sign-up' component={SignUpPage} />
-        <PrivateRoute path='/recipes/view/:id' component={SingleRecipe} />
-        <PrivateRoute path='/recipes/edit/:id' component={UpdateRecipe} />
-        <PrivateRoute path='/add-recipe' component={AddRecipe} />
+        {/* <PrivateRoute path='/recipes/view/:id' component={SingleRecipe} /> */}
+        <Route path='/recipes/view/:id' component={SingleRecipe} />
+        {/* <PrivateRoute path='/recipes/edit/:id' component={UpdateRecipe} /> */}
+        <Route path='/recipes/edit/:id' component={UpdateRecipe} />
+        {/* <PrivateRoute path='/add-recipe' component={AddRecipe} /> */}
+        <Route path='/add-recipe' component={AddRecipe} />
       </Switch>
     </Router>
   </Provider>,

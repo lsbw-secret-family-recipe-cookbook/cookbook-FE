@@ -125,7 +125,8 @@ export const FETCH_TITLES_START = "FETCH_TITLES_START";
 export const FETCH_TITLES_SUCCESS = "FETCH_TITLES_SUCCESS";
 export const FETCH_TITLES_FAILURE = "FETCH_TITLES_FAILURE";
 
-export const getTitles = recipeID => dispatch => {
+export const getTitles = (string) => dispatch => {
+  console.log("string in actions", string)
   dispatch({ type: FETCH_TITLES_START });
   axiosWithAuth()
     .get(`/recipes`)
@@ -136,3 +137,9 @@ export const getTitles = recipeID => dispatch => {
       dispatch({ type: FETCH_TITLES_FAILURE, payload: err });
     });
 };
+
+export const FILTER_TITLES = "FILTER_TITLES"
+
+export const filterRecipes = selectedTag=> dispatch=> {
+  dispatch({type: FILTER_TITLES, payload: selectedTag});
+}

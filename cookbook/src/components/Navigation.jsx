@@ -15,8 +15,8 @@ const Navigation = ({ history }) => {
                 <p className="nav-title" >Secret Cookbook</p>
             </div>
             <div className="links" >
-                <NavLink to="/">Home</NavLink>
-                <NavLink to="/add-recipe">Add New Recipe</NavLink>
+                <NavLink to="/"><button>Home</button></NavLink>
+                <NavLink to="/add-recipe"><button>Add New Recipe</button></NavLink>
                 <button onClick={signOut}>Sign Out</button>
             </div>
         </nav>
@@ -24,3 +24,12 @@ const Navigation = ({ history }) => {
 }
 
 export default withRouter(Navigation);
+
+
+// recipes: {
+//     title: "Crepe",
+//     ingredients: {
+//         1: "milk",
+//         2: "flour"
+//     }
+// }

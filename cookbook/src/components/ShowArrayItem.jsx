@@ -3,9 +3,9 @@ import React from "react";
 
 const ShowArrayItem = ({listNum, item}) => {
     return (
-        <div>
-            <p>{listNum}</p>
-            <p>{item}</p>
+        <div class="array-item-wrapper">
+            <p class= "array-listnum">{listNum}. </p>
+            <p class="array-item">{item}</p>
         </div>
     )
 }

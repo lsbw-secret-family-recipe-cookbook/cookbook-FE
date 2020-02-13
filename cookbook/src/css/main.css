@@ -138,6 +138,13 @@ html {
   font-family: 'Lora', serif;
   background-color: #136B72;
 }
+.array-item-wrapper {
+  display: flex;
+  padding: 0.5em;
+}
+.array-listnum {
+  width: 4vw;
+}
 .signup-page-wrapper {
   width: 80vw;
   height: 80vh;
@@ -302,11 +309,10 @@ html {
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: space-evenly;
-  width: 800px;
   overflow: hidden;
 }
 .recipe-card {
-  width: 200px;
+  width: 30vw;
   margin: 1em;
   padding: 0.5em;
   color: #444;
@@ -372,4 +378,21 @@ html {
 }
 .recipe-view-wrapper h2 {
   font-size: 1.5em;
+}
+.recipe-form-wrapper {
+  width: auto;
+  margin: 3em;
+  padding: 0.5em;
+  color: #444;
+  background: linear-gradient(white, lightgray);
+  border-radius: 5px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.5);
+  text-decoration: none;
+  height: 75vh;
+}
+.recipe-form-wrapper h2 {
+  padding: 1em;
+}
+.directions-wrapper h3 {
+  color: orange;
 }

@@ -6,16 +6,16 @@ import "../less/RecipeCards.less";
 
 class RecipeSideBar extends React.Component {
   componentDidMount() {
-    this.props.getTitles();
+    this.props.getTitles("this string");
   }
   render() {
-    if (!this.props.currentRecipes || this.props.fetchingTitles) {
+    if (!this.props.currentTitles || this.props.fetchingTitles) {
       return <p>Loading...</p>;
     } else {
       return (
         <div className="recipe-cards-wrapper">
-        {console.log("this" ,this.props.currentRecipe)}
-          {this.props.currentRecipes.map(title => {
+        {console.log("this", typeof this.props.currentTitles)}
+          {this.props.currentTitles.map(title => {
             return (
               <div className="recipe-card">
                 <Link to={`/recipes/view/${title.id}`} key={title.id}>
@@ -39,8 +39,7 @@ class RecipeSideBar extends React.Component {
 const mapStateToProps = state => ({
   titles: state.titles.recipes,
   fetchingTitles: state.fetchingTitles,
-  currentRecipes: state.currentRecipes
-});
+  currentTitles: state.currentTitles});
 
 export default connect(
   mapStateToProps,

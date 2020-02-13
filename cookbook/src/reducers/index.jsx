@@ -19,7 +19,8 @@ import {
   DELETE_RECIPE_FAILURE,
   FETCH_TITLES_START,
   FETCH_TITLES_SUCCESS,
-  FETCH_TITLES_FAILURE
+  FETCH_TITLES_FAILURE,
+  FILTER_TITLES
 } from "../actions";
 
 const initialState = {
@@ -34,11 +35,12 @@ const initialState = {
   deletingRecipe: false,
   fetchingTitles: false,
   uniqueTags: ["all"],
-  currentRecipes: [],
+  currentTitles: [],
   success: false
 };
 
 const reducer = (state = initialState, action) => {
+  console.log("ACTION", action);
   switch (action.type) {
     case SIGN_UP_START:
       return {
@@ -46,7 +48,6 @@ const reducer = (state = initialState, action) => {
         error: null,
         signingUp: true,
         success: false
-
       };
     case SIGN_UP_SUCCESS:
       return {
@@ -188,14 +189,15 @@ const reducer = (state = initialState, action) => {
           }
         });
       });
-      console.log("payload", action.payload.recipes)
+      // console.log("payload", action.payload.recipes)
+      console.log("titles", state.titles);
       return {
         ...state,
         titles: action.payload,
         fetchingTitles: false,
         error: null,
         uniqueTags: tempUniqueTags,
-        currentRecipes: action.payload.recipes,
+        currentTitles: action.payload.recipes,
         success: true
       };
     case FETCH_TITLES_FAILURE:
@@ -204,6 +206,25 @@ const reducer = (state = initialState, action) => {
         error: action.payload,
         fetchingTitles: false,
         success: false
+      };
+    case FILTER_TITLES:
+      const tag = action.payload;
+      let filteredTitles = [];
+      if (tag == "all") {
+        filteredTitles = state.titles.recipes;
+      } else {
+        //  console.log("Current Recipes", state.titles.recipes, "tag", tag)
+        filteredTitles = state.titles.recipes.filter(recipe =>
+          recipe.tags.includes(tag)
+        );
+        // filteredTitles = filteredTitles.recipes
+      }
+      console.log("FILTERED TITLES", filteredTitles)
+      return {
+        ...state,
+        error: null,
+        success: true,
+        currentTitles: filteredTitles
       };
     default:
       return state;
