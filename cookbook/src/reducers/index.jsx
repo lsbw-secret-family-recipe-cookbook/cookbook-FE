@@ -35,7 +35,7 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
-  console.log("ACTION", action);
+  // console.log("ACTION", action);
   switch (action.type) {
     case SIGN_UP_START:
       return {
@@ -79,6 +79,10 @@ const reducer = (state = initialState, action) => {
         loading: false,
         success: false
       };
+    case LOG_OUT:
+      return {
+        initialState
+      }
     case FETCH_RECIPE_START:
       return {
         ...state,
@@ -185,7 +189,7 @@ const reducer = (state = initialState, action) => {
         });
       });
       // console.log("payload", action.payload.recipes)
-      console.log("titles", state.titles);
+      // console.log("titles", state.titles);
       return {
         ...state,
         titles: action.payload,
@@ -204,23 +208,44 @@ const reducer = (state = initialState, action) => {
       };
     case FILTER_TITLES:
       const tag = action.payload;
-      let filteredTitles = [];
       if (tag == "all") {
-        filteredTitles = state.titles.recipes;
+        return {
+          ...state,
+          filteredTitles: state.titles.recipes,
+          error: null
+        };
       } else {
-        //  console.log("Current Recipes", state.titles.recipes, "tag", tag)
-        filteredTitles = state.titles.recipes.filter(recipe =>
+        reducedTitles = state.titles.recipes.filter(recipe =>
           recipe.tags.includes(tag)
         );
-        // filteredTitles = filteredTitles.recipes
+        return {
+          ...state,
+          filteredTitles: reducedTitles,
+          error: null,
+        };
       }
-      console.log("FILTERED TITLES", filteredTitles)
+    case CHECK_STATUS_START:
       return {
         ...state,
+        loading: true,
         error: null,
-        success: true,
-        currentTitles: filteredTitles
+        sucess: false
       };
+    case CHECK_STATUS_SUCCESS:
+      return {
+        loggedIn: action.payload,
+        loading: false,
+        error: null,
+        success: true
+      };
+    case CHECK_STATUS_FAILURE:
+      return {
+        loggedIn: false,
+        loading: false,
+        error: "Unable to authenticate, please log in again",
+        success: false
+      };
+
     default:
       return state;
   }

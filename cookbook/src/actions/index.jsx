@@ -14,12 +14,12 @@ export const checkStatus = () => dispatch=> {
       `/auth/authenticate`)
       .then(res => {
         dispatch({type: CHECK_STATUS_SUCCESS, payload: res.data})
-      }).catch(err=> {
+      })
+      .catch(err=> {
+        console.log(err)
         dispatch({type: CHECK_STATUS_FAILURE, payload: err})
       })
 }
-
-
 
 export const SIGN_UP_START = "SIGN_UP_START";
 export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";

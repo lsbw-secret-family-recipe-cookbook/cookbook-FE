@@ -13,6 +13,11 @@ class SignInForm extends React.Component {
       password: ""
     }
   };
+  componentDidMount() {
+    if (!this.props.loggedIn) {
+    this.props.checkStatus()
+    }
+  }
 
   handleChanges = e => {
     this.setState({
@@ -35,7 +40,7 @@ class SignInForm extends React.Component {
   };
 
   render() {
-    if (localStorage.getItem("token")) {
+    if (this.props.loggedIn) {
       return <Redirect to="/" />;
     }
     return (
@@ -89,12 +94,14 @@ class SignInForm extends React.Component {
 
 const mapStateToProps = state => ({
   loading: state.loading,
-  success: state.success
+  success: state.success,
+  error: state.error,
+  loggedIn: state.loggedIn
 });
 
 export default withRouter(
   connect(
     mapStateToProps,
-    { logIn }
+    { logIn, checkStatus }
   )(SignInForm)
 );
