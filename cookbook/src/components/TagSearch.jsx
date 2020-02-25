@@ -45,7 +45,7 @@ class TagSearch extends React.Component {
 
 const mapStateToProps = state => ({
   titles: state.titles.recipes,
-  fetchingTitles: state.fetchingTitles,
+  loading: state.loading,
   uniqueTags: state.uniqueTags,
   currentTitles: state.currentTitles
 });

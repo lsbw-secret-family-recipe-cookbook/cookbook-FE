@@ -9,7 +9,7 @@ class RecipeSideBar extends React.Component {
     this.props.getTitles("this string");
   }
   render() {
-    if (!this.props.currentTitles || this.props.fetchingTitles) {
+    if (!this.props.currentTitles || this.props.loading) {
       return <p>Loading...</p>;
     } else {
       return (
@@ -38,7 +38,7 @@ class RecipeSideBar extends React.Component {
 
 const mapStateToProps = state => ({
   titles: state.titles.recipes,
-  fetchingTitles: state.fetchingTitles,
+  loading: state.loading,
   currentTitles: state.currentTitles});
 
 export default connect(

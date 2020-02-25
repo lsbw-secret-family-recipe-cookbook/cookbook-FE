@@ -1,29 +1,52 @@
 import axios from "axios";
 import { axiosWithAuth } from "../util/axiosWithAuth";
 
+const URL = "https://secret-cookbook.herokuapp.com"
+// const URL = "https://localhost:4000"
+
+export const CHECK_STATUS_START = "CHECK_STATUS_START";
+export const CHECK_STATUS_SUCCESS = "CHECK_STATUS_SUCCESS";
+export const CHECK_STATUS_FAILURE = "CHECK_STATUS_FAILURE"
+export const checkStatus = () => dispatch=> {
+  dispatch({type: CHECK_STATUS_START});
+  axiosWithAuth()
+    .post(
+      `/auth/authenticate`)
+      .then(res => {
+        dispatch({type: CHECK_STATUS_SUCCESS, payload: res.data})
+      }).catch(err=> {
+        dispatch({type: CHECK_STATUS_FAILURE, payload: err})
+      })
+}
+
+
+
 export const SIGN_UP_START = "SIGN_UP_START";
 export const SIGN_UP_SUCCESS = "SIGN_UP_SUCCESS";
 export const SIGN_UP_FAILURE = "SIGN_UP_FAILURE";
 
 export const signUp = (credentials, history) => dispatch => {
-  const creds = { username: credentials.username, password: credentials.password }
+  const creds = { email: credentials.email, password: credentials.password }
+  // const fakeCreds = {email: "Shannon1", password: "123456789"}
   dispatch({ type: SIGN_UP_START });
   axios
     .post(
-      "https://lambdaschool-cookbook2.herokuapp.com/auth/register",
+      `${URL}/auth/register`,
       creds
     )
     .then(res => {
+      // console.log("RES", res)
       dispatch({ type: SIGN_UP_SUCCESS });
       if (res.data.token) {
         localStorage.setItem("token", res.data.token);
         history.push('/');
-      } else {
+      } else { //in case token is not returned for some reason
         credentials.history.push('/log-in');
       }
       return true;
     })
     .catch(err => {
+      console.log(err)
       dispatch({ type: SIGN_UP_FAILURE, payload: err });
       return false;
     });
@@ -37,7 +60,7 @@ export const logIn = (credentials, history) => dispatch => {
   dispatch({ type: LOG_IN_START });
   axios
     .post(
-      "https://lambdaschool-cookbook2.herokuapp.com/auth/login",
+      `${URL}/auth/login`,
       credentials
     )
     .then(res => {
@@ -132,6 +155,9 @@ export const getTitles = (string) => dispatch => {
     .get(`/recipes`)
     .then(res => {
       dispatch({ type: FETCH_TITLES_SUCCESS, payload: res.data });
+      if (res.data.status == 404) {
+        console.log("404 res.data", res.data)
+      }
     })
     .catch(err => {
       dispatch({ type: FETCH_TITLES_FAILURE, payload: err });

@@ -9,7 +9,7 @@ import "../less/SignInForm.less";
 class SignInForm extends React.Component {
   state = {
     credentials: {
-      username: "",
+      email: "",
       password: ""
     }
   };
@@ -28,7 +28,7 @@ class SignInForm extends React.Component {
     this.props.logIn(this.state.credentials, this.props.history);
     this.setState({
       credentials: {
-        username: "",
+        email: "",
         password: ""
       }
     });
@@ -41,7 +41,7 @@ class SignInForm extends React.Component {
     return (
       <div className="login-page-wrapper">
         <div className="login-form-wrapper">
-          {this.props.loggingIn ? (
+          {this.props.loading ? (
             <h2>Loading</h2>
           ) : (
             <>
@@ -53,11 +53,11 @@ class SignInForm extends React.Component {
                   <h3>Log in to</h3>
                   <h2> Secret Cookbook</h2>
                 </div>
-                <p>Username</p>
+                <p>Email</p>
                 <input
                   type="text"
                   required
-                  name="username"
+                  name="email"
                   onChange={this.handleChanges}
                   value={this.input}
                 />
@@ -88,7 +88,7 @@ class SignInForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  loggingIn: state.loggingIn,
+  loading: state.loading,
   success: state.success
 });
 

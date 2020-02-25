@@ -7,10 +7,12 @@ import "../less/SignUpForm.less";
 
 class SignUpForm extends React.Component {
   state = {
-    username: "",
+    email: "",
     password1: "",
     password2: "",
-    passwordMatch: true
+    showErrors: false,
+    passwordError: "",
+    emailError: "",
   };
 
   handleChanges = e => {
@@ -20,24 +22,73 @@ class SignUpForm extends React.Component {
     });
   };
 
-  signUp = e => {
-    e.preventDefault();
-    if (this.state.password1 === this.state.password2) {
-      const newUser = {
-        username: this.state.username,
-        password: this.state.password1
-      };
-      this.props.signUp(newUser, this.props.history);
-      this.setState({
-        username: "",
-        password1: "",
-        password2: ""
-      });
+  validateInputs = () => {
+    let validEmail = false
+    let validPassword = false
+
+
+    //email validation--checks that there is "@" and ".", "@" is before ".", "@" is not the first character, "." is not the last character
+    let atpos = -1;
+    let dotpos = -1;
+    for (let i = 0; i < this.state.email.length; i++) {
+      console.log("email letters", this.state.email[i])
+      if (this.state.email[i] === "@") {
+        atpos = i;
+        
+      }
+      if (this.state.email[i] === "." && atpos>-1) {
+        dotpos = i;
+      }
+    }
+    
+    if (atpos > 0 && atpos < dotpos && dotpos < this.state.email.length - 1) {
+      validEmail = true
+ 
+    }
+    //minlength of 8 from form input, so only checking that passwords match
+    if (this.state.password1 === this.state.password2) {   
+      // console.log("passwords match") 
+      validPassword = true
+    }
+    // console.log("state", this.state)
+    if (validEmail && validPassword) {
+      return true;
     } else {
-      this.setState({ ...this.state, passwordMatch: false });
+      if (!validEmail) {
+        this.setState({...this.state, emailError: "Invalid email entered", showErrors: true})
+      }
+      if (!validPassword) {
+        this.setState({...this.state, passwordError: "Passwords do not match", showErrors: true})
+      }
+      return false;
     }
   };
 
+  signUp = async e => {
+    e.preventDefault();
+    const isValid = this.validateInputs();
+    console.log("state", this.state, "isValid", isValid)
+    if (isValid) {
+      const newUser = {
+        email: this.state.email,
+        password: this.state.password1
+      };
+      await this.props.signUp(newUser, this.props.history);
+      this.setState({
+        email: "",
+        password1: "",
+        password2: "",
+        showErrors: false,
+        passwordError: false,
+        emalError: false
+
+      });
+    } else {
+
+      this.setState({ ...this.state, showErrors: true })
+    }
+  };
+  
   render() {
     return (
       <div className="signup-page-wrapper">
@@ -54,21 +105,23 @@ class SignUpForm extends React.Component {
                   <h3>Welcome to</h3>
                   <h2>Secret Cookbook</h2>
                 </div>
-                <p>Username</p>
+                <p>Email</p>
                 <input
                   type="text"
                   required
-                  name="username"
+                  name="email"
                   onChange={this.handleChanges}
-                  value={this.input}
+                  value={this.state.email}
                 />
+                {this.state.showErrors && this.state.validEmail.length>0? (<p>{this.state.emailError}</p>): ""}
                 <p>Create password</p>
                 <input
                   type="password"
                   required
                   name="password1"
                   onChange={this.handleChanges}
-                  value={this.input}
+                  value={this.state.password1}
+                  minLength="8"
                 />
                 <p>Confirm password</p>
                 <input
@@ -76,12 +129,13 @@ class SignUpForm extends React.Component {
                   required
                   name="password2"
                   onChange={this.handleChanges}
-                  value={this.input}
+                  value={this.state.password2}
+                  minLength="8"
                 />
-                {!this.state.passwordMatch ? (
-                  <p>Oops! Your passwords don't match</p>
+                {!this.state.passwordError  && this.state.showErrors? (
+                  <p>{this.state.passwordError}</p>
                 ) : (
-                  ""
+                  <></>
                 )}
                 <br />
                 <button className="signup-btn" type="submit">
@@ -93,6 +147,7 @@ class SignUpForm extends React.Component {
                     here
                   </Link>
                 </p>
+                {this.props.signUpError?(<p>Error Signing Up</p>): <></>}
               </form>
             </>
           )}
@@ -103,12 +158,8 @@ class SignUpForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  signingUp: state.signingUp
+  signingUp: state.signingUp,
+  error: state.signUpError
 });
 
-export default withRouter(
-  connect(
-    mapStateToProps,
-    { signUp }
-  )(SignUpForm)
-);
+export default withRouter(connect(mapStateToProps, { signUp })(SignUpForm));

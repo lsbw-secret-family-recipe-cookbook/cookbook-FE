@@ -28,7 +28,7 @@ class Recipe extends React.Component {
   };
 
   render() {
-    if (this.props.fetchingRecipe || !this.props.recipe) {
+    if (this.props.loading || !this.props.recipe) {
       return <h2>Loading Recipe for Single Recipe Page...</h2>;
     }
     return (
@@ -84,7 +84,7 @@ class Recipe extends React.Component {
 
 const mapStateToProps = state => ({
   recipe: state.recipe,
-  fetchingRecipe: state.fetchingRecipe
+  loading: state.loading
 });
 
 export default withRouter(

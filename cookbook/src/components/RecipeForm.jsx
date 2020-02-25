@@ -262,7 +262,7 @@ class RecipeForm extends React.Component {
 }
 
 const mapStateToProps = state => ({
-  addingRecipe: state.addingRecipe
+  loading: state.loading
 });
 
 export default withRouter(

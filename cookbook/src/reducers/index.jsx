@@ -27,13 +27,8 @@ const initialState = {
   recipe: null,
   titles: [],
   error: null,
-  signingUp: false,
-  loggingIn: false,
-  fetchingRecipe: false,
-  addingRecipe: false,
-  updatingRecipe: false,
-  deletingRecipe: false,
-  fetchingTitles: false,
+  loading: false,
+  loggedIn: false,
   uniqueTags: ["all"],
   currentTitles: [],
   success: false
@@ -46,48 +41,48 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: null,
-        signingUp: true,
+        loading: true,
         success: false
       };
     case SIGN_UP_SUCCESS:
       return {
         ...state,
         error: null,
-        signingUp: false,
+        loading: false,
         success: true
       };
     case SIGN_UP_FAILURE:
       return {
         ...state,
         error: action.payload,
-        signingUp: null,
+        loading: false,
         success: false
       };
     case LOG_IN_START:
       return {
         ...state,
         error: null,
-        loggingIn: true,
+        loading: true,
         success: false
       };
     case LOG_IN_SUCCESS:
       return {
         ...state,
         error: null,
-        loggingIn: false,
+        loading: false,
         success: true
       };
     case LOG_IN_FAILURE:
       return {
         ...state,
         error: action.payload,
-        loggingIn: false,
+        loading: false,
         success: false
       };
     case FETCH_RECIPE_START:
       return {
         ...state,
-        fetchingRecipe: true,
+        loading: true,
         error: null,
         success: false
       };
@@ -95,7 +90,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: null,
-        fetchingRecipe: false,
+        loading: false,
         recipe: action.payload,
         success: true
       };
@@ -103,14 +98,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload,
-        fetchingRecipe: false,
+        loading: false,
         success: false
       };
     case ADD_RECIPE_START:
       return {
         ...state,
         error: null,
-        addingRecipe: true,
+        loading: true,
         recipes: action.payload,
         success: false
       };
@@ -118,7 +113,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: null,
-        addingRecipe: false,
+        loading: false,
         recipes: action.payload,
         success: true
       };
@@ -126,21 +121,21 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload,
-        addingRecipe: false,
+        loading: false,
         success: false
       };
     case UPDATE_RECIPE_START:
       return {
         ...state,
         error: null,
-        updatingRecipe: true,
+        loading: true,
         success: false
       };
     case UPDATE_RECIPE_SUCCESS:
       return {
         ...state,
         error: null,
-        updatingRecipe: false,
+        loading: false,
         recipe: action.payload,
         success: true
       };
@@ -148,21 +143,21 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload,
-        updatingRecipe: false,
+        loading: false,
         success: false
       };
     case DELETE_RECIPE_START:
       return {
         ...state,
         error: null,
-        deletingRecipe: true,
+        loading: true,
         success: false
       };
     case DELETE_RECIPE_SUCCESS:
       return {
         ...state,
         recipes: action.payload,
-        deletingRecipe: false,
+        loading: false,
         error: null,
         success: true
       };
@@ -170,14 +165,14 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload,
-        deletingRecipe: false,
+        loading: false,
         success: false
       };
     case FETCH_TITLES_START:
       return {
         ...state,
         error: null,
-        fetchingTitles: true,
+        loading: true,
         success: false
       };
     case FETCH_TITLES_SUCCESS:
@@ -194,7 +189,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         titles: action.payload,
-        fetchingTitles: false,
+        loading: false,
         error: null,
         uniqueTags: tempUniqueTags,
         currentTitles: action.payload.recipes,
@@ -204,7 +199,7 @@ const reducer = (state = initialState, action) => {
       return {
         ...state,
         error: action.payload,
-        fetchingTitles: false,
+        loading: false,
         success: false
       };
     case FILTER_TITLES:

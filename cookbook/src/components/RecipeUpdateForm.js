@@ -319,8 +319,8 @@ class RecipeUpdateForm extends React.Component {
 
 const mapStateToProps = state => ({
   recipe: state.recipe,
-  fetchingRecipe: state.fetchingRecipe,
-  updatingRecipe: state.updatingRecipe,
+  loading: state.loading,
+  loading: state.loading,
   success: state.success
 });
 
