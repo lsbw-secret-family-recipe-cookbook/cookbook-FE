@@ -5,6 +5,10 @@ import {
   LOG_IN_START,
   LOG_IN_SUCCESS,
   LOG_IN_FAILURE,
+  LOG_OUT,
+  CHECK_STATUS_START,
+  CHECK_STATUS_SUCCESS,
+  CHECK_STATUS_FAILURE,
   FETCH_RECIPE_START,
   FETCH_RECIPE_SUCCESS,
   FETCH_RECIPE_FAILURE,
@@ -215,7 +219,7 @@ const reducer = (state = initialState, action) => {
           error: null
         };
       } else {
-        reducedTitles = state.titles.recipes.filter(recipe =>
+        let reducedTitles = state.titles.recipes.filter(recipe =>
           recipe.tags.includes(tag)
         );
         return {

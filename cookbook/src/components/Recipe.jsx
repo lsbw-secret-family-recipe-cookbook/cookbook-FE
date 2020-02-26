@@ -89,8 +89,7 @@ const mapStateToProps = state => ({
 
 export default withRouter(
   connect(
-    mapStateToProps,
-    { getRecipe, deleteRecipe }
-  )(Recipe)
+    mapStateToProps, 
+    { getRecipe, deleteRecipe })
+  (Recipe)
 );
-

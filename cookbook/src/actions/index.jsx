@@ -75,6 +75,12 @@ export const logIn = (credentials, history) => dispatch => {
     });
 };
 
+export const LOG_OUT = "LOG_OUT"
+
+export const logOut = ()=> dispatch => {
+  dispatch({type: LOG_OUT});
+}
+
 export const FETCH_RECIPE_START = "FETCH_RECIPE_START";
 export const FETCH_RECIPE_SUCCESS = "FETCH_RECIPE_SUCCESS";
 export const FETCH_RECIPE_FAILURE = "FETCH_RECIPE_FAILURE";

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { logIn } from "../actions";
+import { logIn, checkStatus } from "../actions";
 import { withRouter } from "react-router";
 import logo from "../assets/secret-cookbook-logo.png";
 import "../less/SignInForm.less";

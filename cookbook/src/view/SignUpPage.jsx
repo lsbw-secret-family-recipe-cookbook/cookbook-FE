@@ -4,6 +4,7 @@ import SignUpForm from "../components/SignUpForm";
 const SignUpPage = () => {
   return (
     <>
+    {console.log("SignUpForm")}
       <SignUpForm />
     </>
   );

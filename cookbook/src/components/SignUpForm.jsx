@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, withRouter, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
-import { signUp } from "../actions";
+import { signUp, checkStatus } from "../actions";
 import logo from "../assets/secret-cookbook-logo.png";
 import "../less/SignUpForm.less";
 
@@ -90,7 +90,7 @@ class SignUpForm extends React.Component {
         password2: "",
         showErrors: false,
         passwordError: false,
-        emalError: false
+        emailError: false
       });
     } else {
       this.setState({ ...this.state, showErrors: true });
@@ -177,5 +177,8 @@ const mapStateToProps = state => ({
 });
 
 export default withRouter(
-  connect(mapStateToProps, { signUp, checkStatus })(SignUpForm)
+  connect(
+    mapStateToProps, 
+    { signUp, checkStatus })
+  (SignUpForm)
 );

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import { getTitles } from "../actions";
 import "../less/RecipeCards.less";
 
-class RecipeSideBar extends React.Component {
+class RecipeCards extends React.Component {
   componentDidMount() {
     this.props.getTitles("this string");
   }
@@ -44,5 +44,5 @@ const mapStateToProps = state => ({
 export default connect(
   mapStateToProps,
   { getTitles }
-)(RecipeSideBar);
+)(RecipeCards);
 
